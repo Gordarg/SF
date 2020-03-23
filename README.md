@@ -1,4 +1,4 @@
-Concert Blog Solution
+Blog Solution
 ===
 
 author: Mohammad R @tayyebi <smile@tyyi.net>
@@ -7,7 +7,7 @@ release date: Feb 29 2020
 
 
 # Description
-A solution to which ables editors to cover news and media about concert events.
+A simple blog made on Model-View-Controler design pattern
 
 # Documentation
-All related documentation is located at docs/
+All related documentation is located at **Docs/**

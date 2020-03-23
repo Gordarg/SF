@@ -1,0 +1,32 @@
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+
+@font-face {
+    font-family: Sahel;
+    src: url('../fonts/Sahel.ttf');
+  }
+  
+  * {
+    font-family: Sahel;
+  }
+
+html, body, form, .sidebar-header, .col, .row {
+  direction: rtl;
+  text-align: right;
+}
+
+
+@import "boostrap._variables.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+.min-width-koochool {
+  min-width: 15rem;
+}
+.min-width-jeghel {
+  min-width: 30rem;
+}
+.min-width-gondeh {
+  min-width: 60rem;
+}
