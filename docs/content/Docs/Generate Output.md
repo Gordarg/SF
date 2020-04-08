@@ -1,5 +1,5 @@
 # To generate output
 
 ```
-python3 program/main.py
+python3 docs/program/main.py
 ```
