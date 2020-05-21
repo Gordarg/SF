@@ -1,2 +1,4 @@
 Uploads
 node_modules
+npm-debug.log
+Core/Config.php
