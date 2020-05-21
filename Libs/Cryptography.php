@@ -5,7 +5,7 @@
  */
 
 class Cryptography {
-        
+    const SALT = 'MyVoiceIsMyPassport';
     /**
      * Encrypt
      *
@@ -14,6 +14,8 @@ class Cryptography {
      * @return String
      */
     public static function Encrypt($input) {
-        return md5($input);
+        return hash('sha512', self::SALT . $input);
     }
 }
+
+?>
