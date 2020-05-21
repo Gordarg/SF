@@ -1,1 +1,7 @@
- - [ ] SEO on view page
+ - [ ] API Versioning (Allow to use different versions of API for Enterprise consumers)
+ - [ ] Multi Language Views Based on Cookies
+ - [ ] HTTP authentication with different logics enabled (SQL Authentication, OS authentication, etc ...)
+ - [ ] Form builder
+ - [ ] Emails Ticketing
+ - [ ] Embded models with ORM
+ - [ ] SEO on view pages
