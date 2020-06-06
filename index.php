@@ -28,14 +28,34 @@ include('Core/Model.php');
 // Jalali Date
 include('Libs/jdf.php');
 
-// TODO: If it was API controller
-// New JSON library to handle large files
-include('Libs/JSON.php');
+// Routing
+include('Core/Route.php');
 
-// Controllers core
-include('Core/Controller.php');
+// Check if it's an MVC API request
+if (count((new Route)::GetPathInfo()) > 0 &&
+    (new Route)::GetPathInfo()[0] == 'api')
+{
+    // New JSON library to handle large arrays
+    include('Libs/JSON.php');
 
-// Router
-include('Core/App.php');
+    // Controllers core
+    include('Core/ApiController.php');
 
-new App;
+    // Router
+    include('Core/ApiApp.php');
+
+    // Initialize
+    new ApiApp;
+}
+// If was a MVC request
+else
+{
+    // Controllers core
+    include('Core/Controller.php');
+
+    // Router
+    include('Core/App.php');
+
+    // Initialize
+    new App;
+}

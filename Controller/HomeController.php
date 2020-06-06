@@ -16,8 +16,8 @@ class HomeController extends Controller {
      */
     function IndexGET($Name = 'asghar') {
 
-        $Model = $this->CallModel("Post");
-        $Rows = $Model->GetHomePagePosts();
+        // $Model = $this->CallModel("Post");
+        $Rows = [];//$Model->GetHomePagePosts();
 
         for ($i = 0 ; $i < count($Rows) ; $i++)
         {

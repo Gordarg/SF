@@ -11,27 +11,6 @@ class App {
     private $Params = [];
 
     /**
-     * GetPathInfo
-     *
-     * Returns URL requested by user
-     * 
-     * @return array
-     */
-    function  GetPathInfo(){
-        // If does not exist index.php/something
-        if (!isset($_SERVER['PATH_INFO']))
-            return [];
-
-        // else
-        $PathInfo = trim(
-            $_SERVER['PATH_INFO']
-            , '/');
-
-        return explode('/', $PathInfo);
-    }
-
-
-    /**
      * ThowError
      *
      * Throw low level errors which are log-able from web server
@@ -64,12 +43,10 @@ class App {
      */
     function __construct(){
         // Get URL
-        $URL = $this->GetPathInfo();
+        $URL = Route::GetPathInfo();
 
         // Routing
-        // TODO: Use a routing mechanism which allows configuration
-        // Set Controller
-        
+               
         if (isset($URL[0]))
         {
             $this->DefaultViewDirectoryOfController = $URL[0];
@@ -101,61 +78,9 @@ class App {
         // Get the request body
         switch ($HttpMethod)
         {
-            // HTTP METHOD DELETE or HTTP METHOD PUT
-            case "DELETE":
-            case "PUT":
-                $raw_data = file_get_contents('php://input');
-                $_PUT = array();
-                $boundary = substr($raw_data, 0, strpos($raw_data, "\r\n"));
-                if ($boundary == null) // x-www-form-urlencoded
-                {
-                    $split_parameters = explode('&', $raw_data);
-
-                    for($i = 0; $i < count($split_parameters); $i++) {
-                        $final_split = explode('=', $split_parameters[$i]);
-                        $_PUT[$final_split[0]] = $final_split[1];
-                    }
-                }
-                else // form-data
-                {
-                    $parts = array_slice(explode($boundary, $raw_data), 1);
-                    foreach ($parts as $part) {
-                        if ($part == "--\r\n") break; 
-                        $part = ltrim($part, "\r\n");
-                        list($raw_headers, $body) = explode("\r\n\r\n", $part, 2);
-                        $raw_headers = explode("\r\n", $raw_headers);
-                        $headers = array();
-                        foreach ($raw_headers as $header) {
-                            list($name, $value) = explode(':', $header);
-                            $headers[strtolower($name)] = ltrim($value, ' '); 
-                        }
-                        if (isset($headers['content-disposition'])) {
-                            $filename = null;
-                            preg_match(
-                                '/^(.+); *name="([^"]+)"(; *filename="([^"]+)")?/', 
-                                $headers['content-disposition'], 
-                                $matches
-                            );
-                            list(, $type, $name) = $matches;
-                            isset($matches[4]) and $filename = $matches[4]; 
-                            switch ($name) {
-                                case 'userfile':
-                                    file_put_contents($filename, $body);
-                                    break;
-                                default: 
-                                    $_PUT[$name] = substr($body, 0, strlen($body) - 2);
-                                    break;
-                            } 
-                        }
-
-                    }
-                }
-                $RequestBody = $_PUT;
-                break;
-
             // HTTP METHOD POST
             case "POST":
-                $RequestBody = $_GET;
+                $RequestBody = $_POST;
                 break;
             // HTTP METHOD GET
             default:

@@ -26,3 +26,6 @@ define('_DatabaseServer', 'localhost');
 define('_DatabaseUsername', 'root');
 define('_DatabasePassword', '');
 define('_DatabaseName', 'SF2');
+
+// API Result Type
+define('_APIRESULTTYPE', 'application/json');
