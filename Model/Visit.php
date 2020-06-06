@@ -10,7 +10,7 @@ class Visit extends Model {
         (
             SELECT
             DATEDIFF(`Submit`, NOW()) AS WeekNumber
-            FROM `Visits`
+            FROM `visits`
             WHERE `Submit` > DATE_ADD(NOW(), INTERVAL -90 DAY) -- Limit for three monthes
         ) as AliasOfFirstSelect
         GROUP BY
@@ -23,7 +23,7 @@ class Visit extends Model {
         $Query = 'SELECT
         COUNT(*) as TotalRequests,
         HTTP_USER_AGENT as Agent
-        FROM `Visits`
+        FROM `visits`
         WHERE `Submit` > DATE_ADD(NOW(), INTERVAL -90 DAY) -- Limit for three monthes
         GROUP BY `HTTP_USER_AGENT`
         ';
@@ -35,7 +35,7 @@ class Visit extends Model {
         $Query = 'SELECT
         COUNT(*) as TotalRequests,
         REQUEST_URI as Uri
-        FROM `Visits`
+        FROM `visits`
         WHERE `Submit` > DATE_ADD(NOW(), INTERVAL -90 DAY) -- Limit for three monthes
         AND `REQUEST_URI` LIKE \'%HOME/VIEW%\'
         GROUP BY `REQUEST_URI`

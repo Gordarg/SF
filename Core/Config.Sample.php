@@ -10,7 +10,7 @@
 define('_AppName', 'SF2');
 
 // Default URL (For redirects and etc.)
-define('_Root', 'http://localhost/SnowFramework2/');
+define('_Root', 'http://localhost/SF/');
 
 // TODO: WARNING: Disable debug on production server
 define('_Debug', true);

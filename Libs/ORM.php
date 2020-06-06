@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * 
+ * اگر روش نامگذاری فیلد‌ها در طراحی جداول دیتابیس رعایت شود،
+ * می‌توان بدون هیچ زحمت اضافه چهار عمل اصلی را تولید کرد
+ * 
+ */
+
 // TODO: Improve Data Structure to support validation messages and more complicated Data Types
 
 abstract class ORM
