@@ -1,7 +1,7 @@
 # To disallow unauthorized users to access the method
 
-Call the function `CheckAuth` from any controller
+Call the function `CheckLogin` from any controller
 
 ```
-$this->CheckAuth($_COOKIE);
+$this->CheckLogin($_COOKIE);
 ```

@@ -31,6 +31,9 @@ include('Libs/jdf.php');
 // Routing
 include('Core/Route.php');
 
+// Security
+include('Core/Auth.php');
+
 // Check if it's an MVC API request
 if (count((new Route)::GetPathInfo()) > 0 &&
     (new Route)::GetPathInfo()[0] == 'api')

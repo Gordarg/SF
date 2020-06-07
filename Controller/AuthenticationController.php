@@ -31,7 +31,7 @@ class AuthenticationController extends Controller {
     function LoginPOST() {
 
         $Values = [
-            'Email' => $_POST['EmailInput'],
+            'Username' => $_POST['UsernameInput'],
             'Password' => (new Cryptography())->Encrypt($_POST['PasswordInput'])
         ];
 
@@ -42,7 +42,7 @@ class AuthenticationController extends Controller {
 
             // Set cookies
             setcookie("UserId", $Rows[0]['Id'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
-            setcookie("Email", $_POST['EmailInput'], time() + (2 * 86400 * 15), "/");
+            setcookie("Username", $_POST['UsernameInput'], time() + (2 * 86400 * 15), "/");
 
             // Response redirect
             $this->RedirectResponse(_Root . "Admin/Index");
@@ -63,13 +63,13 @@ class AuthenticationController extends Controller {
      * @return void
      */
     function LogoutGET() {
-        $this->CheckAuth($_COOKIE); // Check login
+        $this->CheckLogin($_COOKIE); // Check login
 
         // Unset the cookies
         unset($_COOKIE['UserId']);
-        unset($_COOKIE['Email']);
+        unset($_COOKIE['Username']);
         setcookie('UserId', null, -1, '/');
-        setcookie('Email', null, -1, '/');
+        setcookie('Username', null, -1, '/');
 
         // Render logout form
         $this->Render('Login', [

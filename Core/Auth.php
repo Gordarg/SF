@@ -9,6 +9,12 @@
 
 class Auth {
 
+    protected $ParentController;
+
+    function __construct($ParentController) {
+        $this->ParentController = $ParentController;
+    }
+
     /**
      * CheckLogin
      *
@@ -22,18 +28,18 @@ class Auth {
     function CheckLogin($Data, $Role = 'admin')
     {
         // Check cookies
-        if (!isset($Data['Email'], $Data['UserId']))
+        if (!isset($Data['Username'], $Data['UserId']))
         {
             throw new AuthException("شناسه کاربری یافت نشد");
             exit;
         }
         
         // Connect to the model
-        $Model = $this->CallModel("Auth");
+        $Model = $this->ParentController->CallModel("Session");
 
         // Check if user is still login
         $CheckSessions = $Model->CheckSessions([
-            'Email' => $Data['Email']
+            'Username' => $Data['Username']
         ]);
 
         // If user was not found in database

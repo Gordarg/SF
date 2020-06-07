@@ -3,7 +3,7 @@
 class User extends Model {
 
     function CheckLogin($Values) {
-        $Query = "SELECT `Id` FROM `Users` WHERE `Email`= :Email and `Password`= :Password";
+        $Query = "SELECT `Id` FROM `users` WHERE `Username`= :Username and `HashPassword`= :Password";
         $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }

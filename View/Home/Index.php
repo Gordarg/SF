@@ -3,47 +3,66 @@
 ?>
 <!--PAYLOAD_CONTENT_END-->
 
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#"><?php echo _AppName ?></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?php echo _Root ?>">خانه <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">RSS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">اپلیکیشن (به زودی)</a>
-                </li>
-            </ul>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-</header>
+ <!-- Navigation -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#"><?php echo _AppName ?></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">خانه
+              <span class="sr-only">*</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo _Root . 'Authentication/Login' ?>">ورود به سیستم</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo _Root . 'docs' ?>">مستندات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">RSS</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-<?php
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+        <h1 class="my-4">عنوان ۱
+          <small>زیر متن</small>
+        </h1>
+
+        <!-- Blog Post -->
+        <div class="card mb-4">
+          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title">Post Title</h2>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            Posted on January 1, 2017 by
+            <a href="#">Start Bootstrap</a>
+          </div>
+        </div>
+
+
+
+        <?php
 // Slider posts
-$i = 0;
 foreach ($Data['Model'] as $item)
 {
-    if ($item['Type'] != "Slider")
-        continue;
-    $i++;
 ?>
     <div class="carousel-item <?php echo $i == 1 ? "active" : "" ?>">
         <img src="<?php echo $item['FileName']?>" alt="<?php echo $item['Title']?>" srcset="" class="bd-placeholder-img" height="100%">
@@ -57,62 +76,83 @@ foreach ($Data['Model'] as $item)
 <?php
 }
 ?>
-    </div>
-    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
 
-<div class="container marketing">
-    <div class="row">
-<?php
-foreach ($Data['Model'] as $item)
-{
-    if ($item['Type'] != "Card")
-        continue;
-?>
-<div class="col-lg-4">
-    <img width="140" height="140" src="<?php echo $item['FileName']?>" alt="<?php echo $item['Title']?>" srcset="" class="bd-placeholder-img rounded-circle">
-    <h2><?php echo $item['Title'] ?></h2>
-    <p><?php
-    $AllowedCharsLimit = 60;
-    if(strlen($item['Abstract']) > $AllowedCharsLimit)
-      echo substr($item['Abstract'], 0, $AllowedCharsLimit)."...";
-    else
-      echo $item['Abstract'];
-    ?></p>
-    <span class="sm"><?php echo $item['Submit'] ?></span>
-    <p><a class="btn btn-secondary" href="<?php echo _Root . 'Home/View/' . $item['Id'] ?>" role="button">ادامه مطلب</a></p>
-</div>
-<?php
-}
-?>
-    </div>
-<?php
-// Row posts
-$row_index = 1;
-foreach ($Data['Model'] as $item)
-{
-    if ($item['Type'] != "Row")
-        continue;
-    $row_index++;
-?>
-    <hr class="featurette-divider">
-    <div class="row featurette">
-        <div class="col-md-7 <?php echo $row_index % 2 == 0 ? "order-md-1" : "order-md-3"?>">
-            <h2 class="featurette-heading"><?php echo $item['Title'] ?></h2>
-            <p class="lead"><?php echo $item['Abstract'] ?></p>
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+          <li class="page-item disabled">
+            <a class="page-link" href="#">&rarr; قدیمی‌تر</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">جدید‌تر &larr;</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="col-md-5 order-md-2">
-            <img src="<?php echo $item['FileName']?>" alt="<?php echo $item['Title']?>" srcset="" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500">
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+
     </div>
-<?php
-}
-?>
-</div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+

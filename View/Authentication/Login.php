@@ -37,8 +37,8 @@ if (isset($Data['Message'])) {
   <form class="form-signin" method="post" action="<?php echo _Root . 'Authentication/Login' ?>">
     <img class="mb-4" src="<?php echo _Root . 'static/Logo.png' ?>" alt="" height="100">
     <h1 class="h3 mb-3 font-weight-normal text-center">ورود به سیستم</h1>
-    <label for="EmailInput" class="sr-only">نام کاربری</label>
-    <input type="email" name="EmailInput" id="EmailInput" class="form-control" placeholder="نشانی پست الکترونیک" required autofocus>
+    <label for="UsernameInput" class="sr-only">نام کاربری</label>
+    <input type="text" name="UsernameInput" id="UsernameInput" class="form-control" placeholder="نشانی پست الکترونیک" required autofocus>
     <label for="PasswordInput" class="sr-only">کلمه‌ی عبور</label>
     <input type="password" name="PasswordInput" id="PasswordInput" class="form-control" placeholder="کلمه‌ی عبور">
     <div class="checkbox mb-3">

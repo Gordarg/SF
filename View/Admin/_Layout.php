@@ -1,69 +1,70 @@
-<link href="<?php echo _Root ?>static/css/dashboard.css" rel="stylesheet">
-<script src="<?php echo _Root ?>static/js/tinymce.js"></script>
-
-<link href="<?php echo _Root ?>static/css/ezdz.css" rel="stylesheet">
-<script src="<?php echo _Root ?>static/js/ezdz.js"></script>
-
-<script>
-tinymce.init({
-    selector: '.tinymce',
-    plugins: 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-    menubar: 'file edit view insert format tools table tc help',
-    // toolbar: 'fontselect save print template codesample'
-    toolbar: 'fullscreen  preview | undo redo | bold italic underline strikethrough | formatselect | ltr rtl | alignleft aligncenter alignright alignjustify | fontsizeselect | numlist bullist checklist | forecolor backcolor casechange removeformat | outdent indent | pagebreak | charmap emoticons | insertfile image media link anchor | a11ycheck | showcomments addcomment',
-    height: 600,
-    image_caption: true,
-    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-    toolbar_drawer: 'sliding',
-    spellchecker_dialog: true,
-});
-</script>
+<link href="<?php echo _Root ?>static/css/datatables.css" rel="stylesheet">
+<script src="<?php echo _Root ?>static/js/datatables.js"></script>
 
 
-<div class="wrapper">
-    <!-- Sidebar  -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3><?php echo _AppName ?></h3>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><?php echo _AppName ?></a>
+    <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+        <a class="nav-link" href="<?php echo _Root . 'Authentication/Logout' ?>">خروج</a>
+    </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>مدیریت</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link active" href="<?php echo _Root . 'Admin' ?>">
+                        داشبورد
+                    </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Tickets' ?>">
+                    تیکت‌ها
+                </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#EMails' ?>">
+                    ایمیل‌ها
+                </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Posts' ?>">
+                    پست‌ها
+                </a>
+                </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>مدیر سیستم</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                </a>
+            </h6>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/Users' ?>">
+                    مدیریت کاربر‌ها
+                </a>
+                </li>
+            </ul>
+
+
+            
         </div>
-
-        <?php include("Helpers/AdminMenu.php"); ?>
-
-        <ul class="list-unstyled CTAs">
-            <li>
-                <a href="<?php echo _Root . 'Admin' ?>" class="download">داشبورد ادمین</a>
-            </li>
-            <li>
-                <a href="<?php echo _Root . 'Authentication/Logout' ?>" class="article">خروج از سیستم</a>
-            </li>
-        </ul>
     </nav>
-
-    <!-- Page Content  -->
-    <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" onclick="ToggleSidebar()" class="btn btn-info">
-                    <i class="fas fa-align-right"></i>
-                    <span>☰ منو</span>
-                </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="<?php echo _Root . 'Docs' ?>">مستندات</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo _Root . 'Admin/User/' . $_COOKIE['UserId'] ?>">تغییر کلمه‌ی عبور</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <!--VIEW_CONTENT-->
+    </main>
+    </div>
+</div>
 <?php
 // Message Modal
 if (isset($Data['Message'])) {
@@ -94,13 +95,6 @@ if (isset($Data['Message'])) {
 <?php
 }
 ?>
-
-        <div id="dynamic" class="container d-flex flex-column">
-            <h1 class="row m-4 text-center p-4 align-self-center"><?php echo $Data['Title']; ?></h1>
-            <!--VIEW_CONTENT-->
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
     function ToggleSidebar(){

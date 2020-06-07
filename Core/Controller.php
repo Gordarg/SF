@@ -229,7 +229,7 @@ class Controller {
 
 
     /**
-     * CheckAuth
+     * CheckLogin
      *
      * Check the auth for user
      * 
@@ -240,6 +240,6 @@ class Controller {
      */
     function CheckLogin($Cookies, $Role = 'admin')
     {
-        return (new Auth())->CheckLogin($Cookies, $Role);
+        return (new Auth($this))->CheckLogin($Cookies, $Role);
     }
 }

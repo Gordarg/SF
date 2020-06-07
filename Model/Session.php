@@ -7,10 +7,11 @@
  * 
  */
 
-class Auth extends Model {
+class Session extends Model {
     
     function CheckSessions($Values) {
-        $Query = "SELECT '1' AS 'LoginStatus' FROM `Users` WHERE Email LIKE :Email";
+        // TODO:
+        $Query = "SELECT '1' AS 'LoginStatus' FROM `users` WHERE Username LIKE :Username";
         $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }
