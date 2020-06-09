@@ -6,11 +6,21 @@ class Post extends Model {
         $Query = '
         SELECT `MasterID`, `Id`, `Title`, YEAR(`Submit`) \'Year\',
         MONTH(`Submit`) \'Month\', DAY(`Submit`) \'Day\',
-        `Body` FROM `post_details`
+        `Body`, `Username`, `Language` FROM `post_details`
         WHERE Status=\'PUBLISH\'
         ORDER BY `Id` DESC
         ';
         $Result = $this->DoSelect($Query);
+        return $Result;
+    }
+
+    function GetPostContent($Values) {
+        $Query = '
+        SELECT `BinContent` FROM `post_details`
+        WHERE MasterID=:MasterID AND Language=:Language
+        ORDER BY `Id` DESC
+        ';
+        $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }
 

@@ -39,40 +39,36 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
+<?php /* TODO: If search
         <h1 class="my-4">عنوان ۱
           <small>زیر متن</small>
         </h1>
-
-        <!-- Blog Post -->
-        <div class="card mb-4">
-          <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-          <div class="card-body">
-            <h2 class="card-title">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
-          </div>
-          <div class="card-footer text-muted">
-            Posted on January 1, 2017 by
-            <a href="#">Start Bootstrap</a>
-          </div>
-        </div>
-
-
+        */ ?>
 
         <?php
 // Slider posts
 foreach ($Data['Model'] as $item)
 {
 ?>
-    <div class="carousel-item <?php echo $i == 1 ? "active" : "" ?>">
-        <img src="<?php echo $item['FileName']?>" alt="<?php echo $item['Title']?>" srcset="" class="bd-placeholder-img" height="100%">
-        <div class="container">
-            <div class="carousel-caption">
-                <h1><?php echo $item['Title']?></h1>
-                <p><a class="btn btn-lg btn-primary" href="<?php echo _Root . 'Home/View/' . $item['Id'] ?>" role="button">مطالعه بیشتر</a></p>
-            </div>
+        <!-- Blog Post -->
+        <div class="card mb-4">
+          <img class="card-img-top" src="<?php echo _Root . 'Post/Download/' . $item['Language'] . '/' . $item['MasterID'] ?>" alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title"><?php echo $item['Title'] ?></h2>
+            <p class="card-text"><?php echo $item['Body'] ?></p>
+            <a href="#" class="btn btn-primary">بیشتر &larr;</a>
+          </div>
+          <div class="card-footer text-muted">
+            <?php 
+              $Year = $item['Year'];
+              $Month = $item['Month'];
+              $Day = $item['Day'];
+              $ShamsiDate = gregorian_to_jalali($Year, $Month, $Day, '/');
+              echo  $ShamsiDate
+            ?>
+            <a href="#"><?php echo $item['Username'] ?></a>
+          </div>
         </div>
-    </div>
 <?php
 }
 ?>
