@@ -8,6 +8,35 @@
 class AuthenticationController extends Controller {
 
     /**
+     * 
+     * BasicGET
+     * 
+     * Responsible for Basic Authentication
+     * 
+     */
+    function BasicGET() {
+        
+        // If valid credintials
+        if ($this->CheckLogin()) {
+            
+            // Set cookies
+            setcookie("Username", $_SERVER['PHP_AUTH_USER'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
+            setcookie("Password", $_SERVER['PHP_AUTH_PW'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
+            
+            // Response redirect
+            $this->RedirectResponse(_Root . "Admin/Index");
+        }
+        // If wasn't logged in
+        else {
+            header('WWW-Authenticate: Basic realm="protected_area"');
+            header('HTTP/1.0 401 Unauthorized');
+            // $this->RedirectResponse(_Root . "Authentication/Login");
+
+        }
+    }
+
+
+    /**
      * LoginGET
      *
      * Shows up login form
@@ -20,41 +49,6 @@ class AuthenticationController extends Controller {
         ]);
     }
 
-
-    /**
-     * LoginPOST
-     *
-     * Does login action
-     * 
-     * @return void
-     */
-    function LoginPOST() {
-
-        $Values = [
-            'Username' => $_POST['UsernameInput'],
-            'Password' => (new Cryptography())->Encrypt($_POST['PasswordInput'])
-        ];
-
-        $Model = $this->CallModel("User");
-        $Rows = $Model->CheckLogin($Values);
-
-        if (count($Rows) == 1) {
-
-            // Set cookies
-            setcookie("UserId", $Rows[0]['Id'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
-            setcookie("Username", $_POST['UsernameInput'], time() + (2 * 86400 * 15), "/");
-
-            // Response redirect
-            $this->RedirectResponse(_Root . "Admin/Index");
-        } else {
-            $this->Render('Login', [
-                "Title" => "ورود",
-                "Message" => "نام کاربری یا کلمه‌ی عبور معتبر نیست"
-            ]);
-        }
-        
-    }
-
     /**
      * LogoutGET
      *
@@ -65,11 +59,12 @@ class AuthenticationController extends Controller {
     function LogoutGET() {
         $this->CheckLogin($_COOKIE); // Check login
 
-        // Unset the cookies
-        unset($_COOKIE['UserId']);
-        unset($_COOKIE['Username']);
-        setcookie('UserId', null, -1, '/');
-        setcookie('Username', null, -1, '/');
+        // Logout
+        header('WWW-Authenticate: Basic realm="protected_area"');
+        header('HTTP/1.0 401 Unauthorized');
+        
+        // $this->RedirectResponse(_Root . "Authentication/Login");
+        // throw new AuthException('Logged Out');
 
         // Render logout form
         $this->Render('Login', [

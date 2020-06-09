@@ -16,7 +16,7 @@ define('_Root', 'http://localhost/SnowFramework2/');
 define('_Debug', true);
 
 // To disable statistics, turn off the flag
-define('_Statistics', true);
+define('_Statistics', false);
 
 // The directory used by file manager to upload user files
 define('_UploadDirectory', 'Uploads/');

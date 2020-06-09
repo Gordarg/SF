@@ -2,7 +2,8 @@
 
 class testController extends ApiController{
 	function GET(){
-		
-		parent::SendResponse(200,"Hello world");
+        $this->CheckLogin($_COOKIE); // Check login
+
+		parent::SendResponse(200, 'Well done');
 	}
 }

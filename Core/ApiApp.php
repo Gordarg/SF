@@ -101,9 +101,9 @@ class ApiApp
 			// Call the method
 			call_user_func_array([$ClassObject, $ControllerMethod], $RequestBody);
 		} catch (AuthException $exp ){ // On auth error
-			$ClassObject->SendResponse(401,'Login required');
+			$ClassObject->SendResponse(401,'Login Required.');
 		} catch (NotFoundException $exp ){ // on not found error
-			$ClassObject->SendResponse(404,'Not Found');
+			$ClassObject->SendResponse(404,'Resource Not Found.');
 		}
 
 

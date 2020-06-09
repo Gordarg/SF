@@ -1,7 +1,5 @@
 <link href="<?php echo _Root ?>static/css/login.css" rel="stylesheet">
 
-
-
 <?php
 // Message Modal
 if (isset($Data['Message'])) {
@@ -33,19 +31,7 @@ if (isset($Data['Message'])) {
 }
 ?>
 
-<div class="text-center">
-  <form class="form-signin" method="post" action="<?php echo _Root . 'Authentication/Login' ?>">
-    <img class="mb-4" src="<?php echo _Root . 'static/Logo.png' ?>" alt="" height="100">
-    <h1 class="h3 mb-3 font-weight-normal text-center">ورود به سیستم</h1>
-    <label for="UsernameInput" class="sr-only">نام کاربری</label>
-    <input type="text" name="UsernameInput" id="UsernameInput" class="form-control" placeholder="نشانی پست الکترونیک" required autofocus>
-    <label for="PasswordInput" class="sr-only">کلمه‌ی عبور</label>
-    <input type="password" name="PasswordInput" id="PasswordInput" class="form-control" placeholder="کلمه‌ی عبور">
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> مرا به خاطرت نگهدار
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
-  </form>
-</div>
+
+<a class="httpauth" id="basic" href="<?php echo _Root . 'Authentication/Login' ?>">ورود به سیستم</a>
+
+<script src="<?php echo _Root . 'static/js/login.js' ?>"></script>

@@ -92,14 +92,18 @@ class App {
         // Call the method if exists
         if (!method_exists($ClassObject, $ControllerMethod))
             $this->ThowError(404);
-        try {
-            // Call the view
+        // Call the function
+        if (_Debug)
             call_user_func_array([$ClassObject, $ControllerMethod], $this->Params);
-        } catch (AuthException $exp ){ // On auth error
-            $this->ThowError(403);
-        } catch (NotFoundException $exp ){ // on not found error
-            $this->ThowError(404);
-        }
+        else
+            try {
+                // Call the view
+                call_user_func_array([$ClassObject, $ControllerMethod], $this->Params);
+            } catch (AuthException $exp ){ // On auth error
+                    $this->ThowError(403);
+            } catch (NotFoundException $exp ){ // on not found error
+                    $this->ThowError(404);
+            }
     }
 
 }

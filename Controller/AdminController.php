@@ -16,7 +16,7 @@ class AdminController extends Controller {
      */
     function InterpreterGET() {
 
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin(); // Check login
 
         $Data = [
             'Title' => 'Title Not Loaded',
@@ -36,7 +36,7 @@ class AdminController extends Controller {
      */
     function IndexGET() {
 
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin(); // Check login
 
         $Data = [
             'Title' => 'پنل مدیر',

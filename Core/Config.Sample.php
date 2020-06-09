@@ -13,10 +13,10 @@ define('_AppName', 'SF2');
 define('_Root', 'http://localhost/SF/');
 
 // TODO: WARNING: Disable debug on production server
-define('_Debug', true);
+define('_Debug', false);
 
 // To disable statistics, turn off the flag
-define('_Statistics', true);
+define('_Statistics', false);
 
 // The directory used by file manager to upload user files
 define('_UploadDirectory', 'Uploads/');

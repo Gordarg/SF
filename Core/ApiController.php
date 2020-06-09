@@ -62,16 +62,48 @@ class ApiController extends Middleware
 		exit;
 	}
 
-	/**
-	 * 
-	 * ValidateAutomatic
-	 * 
-	 * Check Access Level and Validate Login
-	 * 
-	 */
-	function ValidateAutomatic($Role)
-	{
 
-	}
+    /**
+     * CheckLogin
+     *
+     * Check the auth for user
+     * 
+     * @param  mixed $Role
+     *
+     * @return void
+     */
+    function CheckLogin($Role = 'admin')
+    {
+        // If values not set
+        if (isset($_SERVER['PHP_AUTH_USER']))
+        {
+            // Get values from HTTP Authenticate
+            $Values = [
+                'Username' => $_SERVER['PHP_AUTH_USER'],
+                'Password' => (new Cryptography())->Encrypt($_SERVER['PHP_AUTH_PW'])
+            ];
+            // Check with DB
+            if (!(new Auth($this))->CheckLogin($Values, $Role))
+                throw new AuthException('Invalid Login.');
+            else return true;
+        }
+        else if (isset($_COOKIE['Username']))
+        {
+            // Get values from cookies
+            $Values = [
+                'Username' => $_COOKIE['Username'],
+                'Password' => $_COOKIE['Password']
+            ];
+            // TODO: check with token instead of password
+            // Check with DB
+            if (!(new Auth($this))->CheckLogin($Values, $Role))
+                throw new AuthException('Invalid Login.');
+            else return true;
+        }
+        else 
+            throw new AuthException('Login Required.');
+        
+        return false;
+    }
 }
 ?>
