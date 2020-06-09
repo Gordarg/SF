@@ -38,7 +38,7 @@ class Post extends Model {
     }
 
     function GetAllPosts() {
-        $Query = "SELECT `Id`, `Title`, `FileName`, YEAR(`Submit`) 'Year', MONTH(`Submit`) 'Month', DAY(`Submit`) 'Day', `Abstract`, `Body` FROM `Posts` ORDER BY `Id` DESC";
+        $Query = "SELECT `MasterID`, `Id`, `Title`, `Submit`, `Username`, `Status`, `Language` FROM `post_details` ORDER BY `Id` DESC";
         $Result = $this->DoSelect($Query);
         return $Result;
     }

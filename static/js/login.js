@@ -67,9 +67,7 @@ function login(e)
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     var http = getHTTPObject();
-    //var url = "http://" + username + ":" + password + "@" + this.action.substr(7);
-    var url = baseurl + 'Authentication/Basic'; // METHOD 1
-    // var url = this.action; // METHOD 2
+    var url = baseurl + 'Authentication/Basic';
     http.open("get", url, false, username, password);
     http.send("");
     if (http.status == 200) {
@@ -81,12 +79,20 @@ function login(e)
     return false;
 }
 
-// TODO: Logout with javascript
+
 function logout()
 {
     var http = getHTTPObject();
-    http.open("get", this.parentNode.action, false, "null", "null");
+    var url = baseurl + 'Authentication/Basic';
+    http.open("get", url, false, "null", "null");
     http.send("");
     alert("You have been logged out.");
     return false;
 }
+$('.logout').removeAttr('href');
+$('.logout').click( function(e) {e.preventDefault(); 
+    logout();
+    window.location = baseurl + "Authentication/Login";
+    return false;
+}
+);

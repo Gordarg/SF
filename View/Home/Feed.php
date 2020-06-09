@@ -21,8 +21,8 @@
   </nav>
 
 
-<pre class="container">
-    <code class="xml text-wrap"><?php
+<pre class="container" style="direction:ltr;">
+    <code class="xml m-4 p-4 text-wrap" ><?php
     echo '  '.$Data['Result'];
     ?></code>
 </pre>

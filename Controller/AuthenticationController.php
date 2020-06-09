@@ -14,7 +14,15 @@ class AuthenticationController extends Controller {
      * Responsible for Basic Authentication
      * 
      */
-    function BasicGET() {
+    function BasicGET($Logout = false) {
+
+        // If trying to logout
+        if ($Logout == 'Logout')
+        {
+            // Http authentication reset
+            header('WWW-Authenticate: Basic realm="protected_area"');
+            header('HTTP/1.0 401 Unauthorized');
+        }
 
         try{
             $Login = $this->CheckLogin();
@@ -63,11 +71,6 @@ class AuthenticationController extends Controller {
      * @return void
      */
     function LogoutGET() {
-        $this->CheckLogin(); // Check login
-
-        // Http authentication reset
-        header('WWW-Authenticate: Basic realm="protected_area"');
-        header('HTTP/1.0 401 Unauthorized');
         
         // Unset the cookies
         unset($_COOKIE['UserId']);

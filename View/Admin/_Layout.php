@@ -1,12 +1,8 @@
-<link href="<?php echo _Root ?>static/css/datatables.css" rel="stylesheet">
-<script src="<?php echo _Root ?>static/js/datatables.js"></script>
-
-
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><?php echo _AppName ?></a>
     <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-        <a class="nav-link" href="<?php echo _Root . 'Authentication/Logout' ?>">خروج</a>
+        <a class="nav-link logout" href="<?php echo _Root . 'Authentication/Logout' ?>">خروج</a>
     </li>
     </ul>
 </nav>
@@ -112,3 +108,4 @@ if (isset($Data['Message'])) {
         $('input, select').addClass("form-control");
     });
 </script>
+<script src="<?php echo _Root ?>static/js/login.js"></script>
