@@ -19,7 +19,7 @@ class Controller extends Middleware{
 
         // If system was configured to disable statistics
         if (!_Statistics)
-        return;
+            return;
 
         // Get request values
         $Values = $_SERVER;

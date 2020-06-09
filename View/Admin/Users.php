@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>شناسه</th>
-            <th>ایمیل</th>
+            <th>نام کاربری</th>
             <th>کلمه‌ی عبور</th>
         </tr>
     </thead>
@@ -16,7 +16,7 @@ foreach ($Data['Model'] as $item)
             <?php echo $item['Id'] ?>
             </td>
             <td>
-            <?php echo $item['Email'] ?>
+            <?php echo $item['Username'] ?>
             </td>
             <td>
             <a class="btn btn-sm btn-primary" href="<?php echo _Root . 'Admin/User/' . $item['Id'] ?>">تغییر کلمه‌ی عبور</a>
@@ -29,7 +29,7 @@ foreach ($Data['Model'] as $item)
     <tfoot>
         <tr>
             <th>شناسه</th>
-            <th>ایمیل</th>
+            <th>نام کاربری</th>
             <th>کلمه‌ی عبور</th>
         </tr>
     </tfoot>

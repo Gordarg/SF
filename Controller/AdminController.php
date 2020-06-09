@@ -150,7 +150,7 @@ class AdminController extends Controller {
 
                     // Check former password
                     $CheckLogin = $Model->CheckLogin([
-                        'Email' => $Rows[0]['Email'],
+                        'Username' => $Rows[0]['Username'],
                         'Password' => (new Cryptography())->Encrypt($_POST['FormerPassInput'])
                     ]);
 

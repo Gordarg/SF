@@ -4,15 +4,15 @@
     تغییر کلمه‌ی عبور
   </div>
   <div class="card-body">
-    <h5 class="card-title">/<?php echo $Data['Model']['Email'] ?>/</h5>
+    <h5 class="card-title">/<?php echo $Data['Model']['Username'] ?>/</h5>
     <form class="form" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <!-- Because of this input, chrome browser does not ask for stored password update;
             maybe it's a bug from us that we know it. -->
-            <label for="FormerPassInput">ایمیل</label>
-            <input type="email" name="EmailInput" id="EmailInput"
+            <label for="FormerPassInput">نام کاربری</label>
+            <input type="text" name="UsernameInput" id="UsernameInput"
             readonly
-            class="form-control" value="<?php echo $Data['Model']['Email'] ?>" />
+            class="form-control" value="<?php echo $Data['Model']['Username'] ?>" />
         </div>
         <div class="form-group">
             <label for="FormerPassInput">کلمه‌ی عبور پیشین</label>

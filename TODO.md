@@ -2,12 +2,13 @@ Phase 0:
 
 - [X] Remove types from posts
 - [ ] Generate new models
+- [ ] Basic Authentication Login
 - [ ] API Authentication
 - [ ] Categories
 - [X] Show posts on homepage
 - [ ] Seach on homepage
 - [X] View posts
-- [ ] Users management
+- [X] Users management
 - [ ] Translate markdown
 - [ ] Markdown editor
 - [ ] Multi language UI
@@ -15,6 +16,7 @@ Phase 0:
 - [ ] Posts managament
 - [ ] Form builder
 - [ ] Emails and tickets
+- [ ] Dashboard (Hard Disk, Network Traffic, Firewall, Visits)
 
 Phase 1: Web site features (EMails & Tickets, Form buidler, )
 
