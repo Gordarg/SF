@@ -56,7 +56,7 @@ foreach ($Data['Model'] as $item)
           <div class="card-body">
             <h2 class="card-title"><?php echo $item['Title'] ?></h2>
             <p class="card-text"><?php echo $item['Body'] ?></p>
-            <a href="#" class="btn btn-primary">بیشتر &larr;</a>
+            <a href="<?php echo _Root . 'Home/View/' . $item['Language'] . '/' . $item['MasterID'] ?>" class="btn btn-primary">بیشتر &larr;</a>
           </div>
           <div class="card-footer text-muted">
             <?php 
@@ -90,12 +90,12 @@ foreach ($Data['Model'] as $item)
 
         <!-- Search Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Search</h5>
+          <h5 class="card-header">جستجو</h5>
           <div class="card-body">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for...">
+              <input type="text" class="form-control" placeholder="به دنبال...">
               <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button">Go!</button>
+                <button class="btn btn-secondary" type="button">بگرد!</button>
               </span>
             </div>
           </div>

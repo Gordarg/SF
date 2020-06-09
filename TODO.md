@@ -6,7 +6,7 @@ Phase 0:
 - [ ] Categories
 - [X] Show posts on homepage
 - [ ] Seach on homepage
-- [ ] View posts
+- [X] View posts
 - [ ] Users management
 - [ ] Translate markdown
 - [ ] Markdown editor

@@ -24,6 +24,19 @@ class Post extends Model {
         return $Result;
     }
 
+    function GetPost($Values) {
+        $Query = '
+        SELECT `MasterID`, `Id`, `Title`, YEAR(`Submit`) \'Year\',
+        MONTH(`Submit`) \'Month\', DAY(`Submit`) \'Day\',
+        `Body`, `Username`, `Language` FROM `post_details`
+        WHERE Status=\'PUBLISH\'
+        AND MasterID=:MasterID AND Language=:Language
+        ORDER BY `Id` DESC
+        ';
+        $Result = $this->DoSelect($Query, $Values);
+        return $Result;
+    }
+
     function GetAllPosts() {
         $Query = "SELECT `Id`, `Title`, `FileName`, YEAR(`Submit`) 'Year', MONTH(`Submit`) 'Month', DAY(`Submit`) 'Day', `Abstract`, `Body` FROM `Posts` ORDER BY `Id` DESC";
         $Result = $this->DoSelect($Query);
