@@ -1,35 +1,36 @@
 Phase 0:
 
 - [X] Remove types from posts
-- [ ] Generate new models
-- [ ] Basic Authentication Login
-- [ ] API Authentication
-- [ ] Categories
+- [X] Basic Authentication Login
+- [X] API Authentication
 - [X] Show posts on homepage
-- [ ] Seach on homepage
 - [X] View posts
 - [X] Users management
-- [ ] Translate markdown
-- [ ] Markdown editor
-- [ ] Multi language UI
-- [ ] Multi language posts
 - [ ] Posts managament
-- [ ] Form builder
+- [ ] Markdown editor
+- [ ] Translate markdown
+- [ ] Multi language posts
+- [ ] Multi language UI
+- [ ] Authorization (Return UserId and role as response)
+- [ ] Users role management & Define new users
+- [ ] Seach on homepage
+- [ ] Manage, View and Link Categories
 - [ ] Emails and tickets
-- [ ] Dashboard (Hard Disk, Network Traffic, Firewall, Visits)
+- [ ] Dashboard Statistics (Hard Disk, Network Traffic, Firewall, Visits)
 
 Phase 1: Web site features (EMails & Tickets, Form buidler, )
 
-- [ ] Enable to send posts in series with user defined 'index' (Commonly used in books and magazines style)
+- [ ] Enable to send posts in series with user defined 'index' and generate single page printable output (Commonly used in books and magazines style)
 - [ ] HTTP authentication with different logics enabled (SQL Authentication, OS authentication, etc ...)
-- [ ] SEO on view pages
+- [ ] SEO on Category, Search, View and Home Pages
+- [ ] Dynamic routing
 
-Phase 2: Web API features ()
+Phase 2: Web API features
 
 - [ ] API Versioning (Allow to use different versions of API for Enterprise consumers): how to=> Search for api version, if not exist, use a lower version.
-- [ ] Embded models with ORM
 - [ ] Blog feed RSS
-- [ ] Post answers to forms
+- [ ] Form builder
+- [ ] Workflow builder
 
 Phase 3:
 
@@ -42,4 +43,8 @@ Phase 4:
 - [ ] Routing dynamic configuration
 - [ ] Android application
 - [ ] Desktop application
-- [ ] Professional Editors panel
+
+Phase 5:
+
+- [ ] Code and scaffolding command-line assistant
+- [ ] Plugins installation and management

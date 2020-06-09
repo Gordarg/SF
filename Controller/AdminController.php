@@ -56,7 +56,7 @@ class AdminController extends Controller {
      */
     function UsersGET() {
 
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin('admin'); // Check login
 
         // Ask database for data
         $Model = $this->CallModel("User");
@@ -84,7 +84,7 @@ class AdminController extends Controller {
      */
     function UserGET($Id = 0) {
 
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin(); // Check login
 
 
         // Check if Id is passed to function
@@ -126,7 +126,7 @@ class AdminController extends Controller {
      */
     function UserPOST($Id = 0) {
         
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin(); // Check login
 
         // Check if Id is passed to the function
         if ($Id != 0)

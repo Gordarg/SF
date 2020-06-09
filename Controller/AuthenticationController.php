@@ -15,9 +15,15 @@ class AuthenticationController extends Controller {
      * 
      */
     function BasicGET() {
+
+        try{
+            $Login = $this->CheckLogin();
+        } catch (Exception $xep) {
+            $Login = false;
+        }
         
         // If valid credintials
-        if ($this->CheckLogin()) {
+        if ($Login) {
             
             // Set cookies
             setcookie("Username", $_SERVER['PHP_AUTH_USER'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
@@ -57,14 +63,17 @@ class AuthenticationController extends Controller {
      * @return void
      */
     function LogoutGET() {
-        $this->CheckLogin($_COOKIE); // Check login
+        $this->CheckLogin(); // Check login
 
-        // Logout
+        // Http authentication reset
         header('WWW-Authenticate: Basic realm="protected_area"');
         header('HTTP/1.0 401 Unauthorized');
         
-        // $this->RedirectResponse(_Root . "Authentication/Login");
-        // throw new AuthException('Logged Out');
+        // Unset the cookies
+        unset($_COOKIE['UserId']);
+        unset($_COOKIE['Username']);
+        setcookie('UserId', null, -1, '/');
+        setcookie('Username', null, -1, '/');
 
         // Render logout form
         $this->Render('Login', [
