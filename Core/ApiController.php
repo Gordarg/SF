@@ -12,7 +12,7 @@
 
 // TODO: Every controller must have in-app output (Integration) and parsed output (Web API)
 
-class ApiController
+class ApiController extends Middleware
 {
 
 	/**

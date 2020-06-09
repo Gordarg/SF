@@ -25,6 +25,9 @@ include('Libs/Cryptography.php');
 // Models core
 include('Core/Model.php');
 
+// Middleware
+include('Core/Middleware.php');
+
 // Jalali Date
 include('Libs/jdf.php');
 

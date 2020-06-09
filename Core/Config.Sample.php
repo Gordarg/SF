@@ -29,3 +29,8 @@ define('_DatabaseName', 'SF2');
 
 // API Result Type
 define('_APIRESULTTYPE', 'application/json');
+
+// Mail Server
+define('_MailServer', '');
+define('_MailUser', '');
+define('_MailPassword', '');

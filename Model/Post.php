@@ -4,33 +4,11 @@ class Post extends Model {
 
     function GetHomePagePosts() {
         $Query = '
-        SELECT * FROM (
-        SELECT `Id`, `Title`, `Submit`, `Abstract`, `Type`, `FileName`
-        FROM `Posts`
-        WHERE `Type`=\'Card\'
-        ORDER BY `Id`
-        DESC LIMIT 30
-        ) AS A
-        
-        UNION
-
-        SELECT * FROM (
-        SELECT `Id`, `Title`, `Submit`, `Abstract`, `Type`, `FileName`
-        FROM `Posts`
-        WHERE `Type`=\'Row\'
-        ORDER BY `Id`
-        DESC LIMIT 3
-        ) AS B
-
-        UNION
-
-        SELECT * FROM (
-        SELECT `Id`, `Title`, `Submit`, `Abstract`, `Type`, `FileName`
-        FROM `Posts`
-        WHERE `Type`=\'Slider\'
-        ORDER BY `Id`
-        DESC LIMIT 5
-        ) AS C
+        SELECT `MasterID`, `Id`, `Title`, YEAR(`Submit`) \'Year\',
+        MONTH(`Submit`) \'Month\', DAY(`Submit`) \'Day\',
+        `Body` FROM `post_details`
+        WHERE Status=\'PUBLISH\'
+        ORDER BY `Id` DESC
         ';
         $Result = $this->DoSelect($Query);
         return $Result;
@@ -47,8 +25,7 @@ class Post extends Model {
         $Result = $this->DoQuery($Query, $Values);
         return $Result;
     }
-
-
+    
     function UpdatePost($Values) {
         $Query = 'UPDATE `Posts` SET `Title` = :Title, `Abstract` = :Abstract, `Body` = :Body, `Type` = :Type, `FileName` = :FileName WHERE `Id`=:Id';
         $Result = $this->DoQuery($Query, $Values);
@@ -60,7 +37,6 @@ class Post extends Model {
         $Result = $this->DoQuery($Query, $Values);
         return $Result;
     }
-
 
     function GetPostById($Values) {
         $Query = "SELECT `Id`, `Title`, `Type`, `FileName`, YEAR(`Submit`) 'Year', MONTH(`Submit`) 'Month', DAY(`Submit`) 'Day', `Abstract`, `Body` FROM `Posts` WHERE `Id`=:Id LIMIT 1";

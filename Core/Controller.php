@@ -2,7 +2,7 @@
 /**
  * Master class of controllers
  */
-class Controller {
+class Controller extends Middleware{
 
     protected $ViewDirectory;
 
@@ -94,19 +94,12 @@ class Controller {
     }
 
     /**
-     * CallModel
-     *
-     * Sets, calls, and loads the model
      * 
-     * @param string $Entity
-     *
-     * @return void
+     * GetPayload
+     * 
+     * Extract head and tail from file
+     * 
      */
-    function CallModel(string $Entity){
-        include('Model/' . $Entity . '.php');
-        return new $Entity;
-    }
-
     private function GetPayload($ViewFile, $ExcludePayload = false){
         $Separator = '<!--PAYLOAD_CONTENT_END-->';
         $TextInsideFile = file_get_contents($ViewFile);

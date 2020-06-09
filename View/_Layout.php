@@ -27,9 +27,13 @@
     <!-- Main CSS Compiled from Bootstrap -->
     <link href="<?php echo _Root ?>static/css/main.css" rel="stylesheet">
 
-    <!-- Bootstrap Core JS -->
+    <!-- jQuery -->
     <script src="<?php echo _Root ?>static/js/jquery.js" crossorigin="anonymous"></script>
+    <script src="<?php echo _Root ?>static/js/config.js" crossorigin="anonymous"></script>
+    <script src="<?php echo _Root ?>static/js/jquery.tayyebi.js"></script>
     <script src="<?php echo _Root ?>static/js/popper.js" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap Core JS -->
     <script src="<?php echo _Root ?>static/js/bootstrap.js"></script>
 
 </head>

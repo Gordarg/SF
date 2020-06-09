@@ -14,15 +14,15 @@ class HomeController extends Controller {
      * 
      * @return void
      */
-    function IndexGET($Name = 'asghar') {
+    function IndexGET() {
 
-        // $Model = $this->CallModel("Post");
-        $Rows = [];//$Model->GetHomePagePosts();
+        $Model = $this->CallModel("Post");
+        $Rows = $Model->GetHomePagePosts();
 
         for ($i = 0 ; $i < count($Rows) ; $i++)
         {
             $Rows[$i]['Title'] = utf8_decode($Rows[$i]['Title']);
-            $Rows[$i]['Abstract'] = utf8_decode($Rows[$i]['Abstract']);
+            $Rows[$i]['Body'] = utf8_decode($Rows[$i]['Body']);
         }
 
         $Data = [
@@ -31,6 +31,69 @@ class HomeController extends Controller {
         ];
 
         $this->Render('Index', $Data);
+    }
+
+    /**
+     * FeedGET
+     * 
+     * Human friendly view of RSS Home feed
+     * 
+     */
+    function FeedGET(){
+
+        // Call model
+        $Model = $this->CallModel("Post");
+        $Rows = $Model->GetHomePagePosts();
+
+        // Decode UTF-8
+        for ($i = 0 ; $i < count($Rows) ; $i++)
+        {
+            $Rows[$i]['Title'] = utf8_decode($Rows[$i]['Title']);
+            $Rows[$i]['Body'] = utf8_decode($Rows[$i]['Body']);
+        }
+
+
+        // Build RSS
+        $Title = _AppName;
+        $Link = _Root;
+        $Description = ''; // TODO: Description
+
+        $items_str = '';
+        for ($i = 0 ; $i < count($Rows) ; $i++)
+        {
+            $item_title = $Rows[$i]['Title'];
+            $item_link = _Root . 'Home/View/' . $Rows[$i]['MasterID'];
+            $item_abstract = $Rows[$i]['Body'];
+
+
+            $items_str .= "<item>
+    <title>$item_title</title>
+    <link>$item_link</link>
+    <description>$item_abstract</description>
+</item>
+";
+        }
+
+        $output_str = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>
+<rss version=\"2.0\">
+
+<channel>
+<title>$Title</title>
+<link>$Link</link>
+<description>$Description</description>
+$items_str
+</channel>
+
+</rss>";
+
+        // Serialize the output to pass
+        $Data = [
+            'Title' => _AppName,
+            'Result' => htmlentities($output_str)
+        ];
+
+        // Render the page
+        $this->Render('Feed', $Data);
     }
 
 

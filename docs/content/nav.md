@@ -15,6 +15,7 @@
     1. Uploads
     1. Database
     1. Jalali Date Time
+    1. Cryptography
 - Docs
     1. Generate Output
 

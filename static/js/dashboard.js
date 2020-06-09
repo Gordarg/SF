@@ -1,5 +1,3 @@
-var baseurl = 'http://localhost/SnowFramework2/';
-
 function setgui(name, params = null){
 
     $('.content').html('');
