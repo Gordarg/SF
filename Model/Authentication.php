@@ -7,8 +7,15 @@
  * 
  */
 
-class Session extends Model {
+class Authentication extends Model {
     
+
+    function ValidateUserPass($Values) {
+        $Query = "SELECT `Id` FROM `users` WHERE `Username`= :Username and `HashPassword`= :Password";
+        $Result = $this->DoSelect($Query, $Values);
+        return $Result;
+    }
+
     function CheckSessions($Values) {
         // TODO:
         $Query = "SELECT '1' AS 'LoginStatus' FROM `users` WHERE Username LIKE :Username";

@@ -235,7 +235,7 @@ class Controller extends Middleware{
             // Get values from HTTP Authenticate
             $Values = [
                 'Username' => $_SERVER['PHP_AUTH_USER'],
-                'Password' => (new Cryptography())->Encrypt($_SERVER['PHP_AUTH_PW'])
+                'Password' => $_SERVER['PHP_AUTH_PW']
             ];
             // Check with DB
             if (!(new Auth($this))->CheckLogin($Values, $Role))

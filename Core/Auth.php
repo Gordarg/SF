@@ -28,9 +28,18 @@ class Auth {
     function CheckLogin($Data, $Role = 'admin')
     {
 
+
+        $Values = [
+            'Username' => $Data['Username'],
+            'Password' => (new Cryptography())->Encrypt($Data['Password'])
+        ];
+
+        $Model = $this->ParentController->CallModel('Authentication');
+        $Entity = $Model->ValidateUserPass($Values);
+
         // TODO: Check sessions
 
-        return true;
+        return (count($Entity) == 1);
         
     }
 

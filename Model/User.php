@@ -2,12 +2,6 @@
 
 class User extends Model {
 
-    function CheckLogin($Values) {
-        $Query = "SELECT `Id` FROM `users` WHERE `Username`= :Username and `HashPassword`= :Password";
-        $Result = $this->DoSelect($Query, $Values);
-        return $Result;
-    }
-
     function GetAllUsers() {
         $Query = "SELECT `Id`, `Username` FROM `users` ORDER BY `Id`";
         $Result = $this->DoSelect($Query);
