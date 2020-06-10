@@ -5,7 +5,7 @@ class postsController extends ApiController {
         $this->CheckLogin(); // Check login
 
         // Select single post
-        if ($To == -1 && $IdOrFrom != -1)
+        if ($To == -1 && (!is_array($IdOrFrom) || $IdOrFrom == -1))
         {
             $Model = $this->CallModel("Post");
             $Rows = $Model->GetPostByMasterId(
@@ -20,8 +20,13 @@ class postsController extends ApiController {
             $Model = $this->CallModel("Post");
             $Rows = $Model->GetAllPosts();
 
-            $From = (int) trim($IdOrFrom);
-            $To = (int) trim($To);
+            $From = 0;
+            if (!is_array($IdOrFrom) && $IdOrFrom>0)
+                $From =  (int) trim($IdOrFrom);
+            if ($To == -1)
+                $To = 50;
+            else $To = (int) trim($To);
+
             for ($i = 0 ; $i < count($Rows) ; $i++)
             {
                 $Rows[$i]['Title'] = utf8_decode($Rows[$i]['Title']);
