@@ -35,9 +35,10 @@ class ApiApp
 				if ($boundary == null && $raw_data != 'null') // x-www-form-urlencoded
 				{
 					$split_parameters = explode('&', $raw_data);
+
 					for($i = 0; $i < count($split_parameters); $i++) {
 						$final_split = explode('=', $split_parameters[$i]);
-						$result[$final_split[0]] = $final_split[1];
+						$ClassObject->RequestBody[$final_split[0]] = $final_split[1];
 					}
 				}
 				else if ($raw_data != 'null')
@@ -67,29 +68,34 @@ class ApiApp
 									file_put_contents($filename, $body);
 									break;
 								default: 
-									$result[$name] = substr($body, 0, strlen($body) - 2);
+									$ClassObject->RequestBody[$name] = substr($body, 0, strlen($body) - 2);
 									break;
 							} 
 						}
+
 					}
 				}
 				else
 				{
 					$url = $_SERVER['REQUEST_URI'];
+
 					$split_parameters = explode('&', $url);
+
 					for($i = 0; $i < count($split_parameters); $i++) {
 						$final_split = explode('=', $split_parameters[$i]);
-						$result[$final_split[0]] = $final_split[1];
+						$ClassObject->RequestBody[$final_split[0]] = $final_split[1];
 					}
 				}
 				break;
 
 				case "POST":
 					$ClassObject->RequestBody = $_POST;
+					array_push($ClassObject->RequestBody, $_FILES);
 					break;
 
 				default:
 					$ClassObject->RequestBody = $_GET;
+					array_push($ClassObject->RequestBody, $_FILES);
 
 		}
 		// Call the method if exists

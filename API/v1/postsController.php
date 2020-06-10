@@ -35,13 +35,13 @@ class postsController extends ApiController {
         $this->CheckLogin(); // Check login
 
         $Values = [
-            'MasterId' => $this->RequestBody['MasterId'],
-            'Title' => $this->RequestBody['Title'],
-            'BinContent' => $this->RequestBody['BinContent'],
-            'Body' => $this->RequestBody['Body'],
-            'UserId' => $this->RequestBody['UserId'],
-            'Status' => $this->RequestBody['Status'],
-            'Language' => $this->RequestBody['Language'],
+            'MasterId' => (new Random())::GenerateGUID(),
+            'Title' => $this->RequestBody['title'],
+            'BinContent' => base64_encode(file_get_contents($this->RequestBody[0]['content']['tmp_name'][0])),
+            'Body' => $this->RequestBody['body'],
+            'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
+            'Status' => $this->RequestBody['status'],
+            'Language' => 'fa-IR' // $this->RequestBody['language'],
         ];
 
         $Model = $this->CallModel("Post");

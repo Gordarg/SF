@@ -26,6 +26,9 @@ include('Core/Exceptions.php');
 // Cryptography
 include('Libs/Cryptography.php');
 
+// Random
+include('Libs/Random.php');
+
 // Models core
 include('Core/Model.php');
 

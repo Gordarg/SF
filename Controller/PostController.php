@@ -27,6 +27,6 @@ class PostController extends Controller {
         header("Expires: ".gmdate("D, d M Y H:i:s", time()+1800)." GMT");
         header("Cache-Control: max-age=1800");
         header("Content-Length: " . $size);
-        echo $content;
+        echo base64_decode($content);
     }
 }
