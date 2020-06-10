@@ -22,7 +22,7 @@
 </nav>
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('<?php echo _Root . 'Post/Download/' . $Data['Model']['Language'] . '/' . $Data['Model']['MasterID'] ?>')">
+<header class="masthead" style="background-image: url('<?php echo _Root . 'Post/Download/' . $Data['Model']['Language'] . '/' . $Data['Model']['MasterId'] ?>')">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">

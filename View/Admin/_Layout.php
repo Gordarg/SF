@@ -22,7 +22,7 @@
                         داشبورد
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                 <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Tickets' ?>">
                     تیکت‌ها
                 </a>
@@ -30,6 +30,11 @@
                 <li class="nav-item">
                 <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#EMails' ?>">
                     ایمیل‌ها
+                </a>
+                </li> -->
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Post' ?>">
+                    پست جدید
                 </a>
                 </li>
                 <li class="nav-item">
@@ -92,6 +97,7 @@ if (isset($Data['Message'])) {
 }
 ?>
 
+<script src="<?php echo _Root ?>static/js/dashboard.js"></script>
 <script type="text/javascript">
     function ToggleSidebar(){
         // Show and hide sidebar

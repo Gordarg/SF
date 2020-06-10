@@ -86,13 +86,12 @@ function logout()
     var url = baseurl + 'Authentication/Basic';
     http.open("get", url, false, "null", "null");
     http.send("");
-    alert("You have been logged out.");
     return false;
 }
 $('.logout').removeAttr('href');
 $('.logout').click( function(e) {e.preventDefault(); 
     logout();
-    window.location = baseurl + "Authentication/Login";
+    window.location = baseurl + "Authentication/Logout";
     return false;
 }
 );

@@ -1,12 +1,12 @@
 <?php
 
 class PostController extends Controller {
-    function DownloadGET($Language, $MasterID) {
+    function DownloadGET($Language, $MasterId) {
         
         $Model = $this->CallModel('Post');
         $content = $Model->GetPostContent([
             'Language' => $Language,
-            'MasterID' => $MasterID
+            'MasterId' => $MasterId
         ])[0]['BinContent'];
 
         $finfo = new finfo(FILEINFO_MIME);
@@ -16,7 +16,7 @@ class PostController extends Controller {
         $delimiters = array("/",";"," ","=");
         $ready = str_replace($delimiters, $delimiters[0], $type);
         $launch = explode($delimiters[0], $ready);
-        $name = "Gord-" . $MasterID . '.' . $launch[1];
+        $name = "Gord-" . $MasterId . '.' . $launch[1];
 
         header("Content-type: " . $type);
         header('Content-Disposition: attachment; filename="' . $name . '"');

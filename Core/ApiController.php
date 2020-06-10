@@ -15,6 +15,8 @@
 class ApiController extends Middleware
 {
 
+	public $RequestBody = [];
+
 	/**
 	 * 
 	 * FormatData

@@ -16,7 +16,6 @@ class ApiApp
 		$this->Version = $URL[1];
 		// Controller
 		$this->Controller = $URL[2].'Controller';
-
 		// Call the method form class
 		$ControllerFilePath = 'API/' . $this->Version . '/' . $this->Controller.'.php';
 		// Include the controller file
@@ -26,13 +25,12 @@ class ApiApp
 		// Set the method function
 		$ControllerMethod = $_SERVER['REQUEST_METHOD'];
 		// Set request body
-		$RequestBody = [];
 		switch ($ControllerMethod)
 		{
 			case "DELETE":
 			case "PUT":
 				$raw_data = file_get_contents('php://input');
-				$RequestBody = array();
+				$ClassObject->RequestBody = array();
 				$boundary = substr($raw_data, 0, strpos($raw_data, "\r\n"));
 				if ($boundary == null && $raw_data != 'null') // x-www-form-urlencoded
 				{
@@ -87,11 +85,11 @@ class ApiApp
 				break;
 
 				case "POST":
-					$RequestBody = $_POST;
+					$ClassObject->RequestBody = $_POST;
 					break;
 
 				default:
-					$RequestBody = $_GET;
+					$ClassObject->RequestBody = $_GET;
 
 		}
 		// Call the method if exists
@@ -99,7 +97,7 @@ class ApiApp
 			$ClassObject->SendResponse(404,'Not Found');
 		try {
 			// Call the method
-			call_user_func_array([$ClassObject, $ControllerMethod], $RequestBody);
+			call_user_func_array([$ClassObject, $ControllerMethod], $ClassObject->RequestBody);
 		} catch (AuthException $exp ){ // On auth error
 			$ClassObject->SendResponse(401,'Login Required.');
 		} catch (NotFoundException $exp ){ // on not found error

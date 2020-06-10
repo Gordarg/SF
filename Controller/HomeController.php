@@ -62,7 +62,7 @@ class HomeController extends Controller {
         for ($i = 0 ; $i < count($Rows) ; $i++)
         {
             $item_title = $Rows[$i]['Title'];
-            $item_link = _Root . 'Home/View/' . $Rows[$i]['MasterID'];
+            $item_link = _Root . 'Home/View/' . $Rows[$i]['MasterId'];
             $item_abstract = $Rows[$i]['Body'];
 
 
@@ -104,18 +104,18 @@ $items_str
      * 
      * @return void
      */
-    function ViewGET($Language = 0, $MasterID = 0) {
+    function ViewGET($Language = 0, $MasterId = 0) {
         
 
         // If Id wasnt passed to the method
-        if (!$Language || !$MasterID)
+        if (!$Language || !$MasterId)
             throw new NotFoundException();       
 
         // call the model
         $Entity = $this->CallModel('Post');
         $Model = $Entity->GetPost([
             'Language' => $Language,
-            'MasterID' => $MasterID
+            'MasterId' => $MasterId
         ]);
 
         // If post not found in db
@@ -130,7 +130,7 @@ $items_str
         $Data = [
             'Title' => utf8_decode($Model['Title']),
             'Model' => [
-                'MasterID' => $Model['MasterID'],
+                'MasterId' => $Model['MasterId'],
                 'Id' => $Model['Id'],
                 'Language' => $Model['Language'],
                 'Title' => utf8_decode($Model['Title']),

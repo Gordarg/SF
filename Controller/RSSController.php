@@ -28,7 +28,7 @@ class RSSController extends Controller{
         for ($i = 0 ; $i < count($Rows) ; $i++)
         {
             $item_title = $Rows[$i]['Title'];
-            $item_link = _Root . 'Home/View/' . $Rows[$i]['MasterID'];
+            $item_link = _Root . 'Home/View/' . $Rows[$i]['MasterId'];
             $item_abstract = $Rows[$i]['Body'];
 
 
