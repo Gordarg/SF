@@ -29,6 +29,9 @@ include('Libs/Cryptography.php');
 // Random
 include('Libs/Random.php');
 
+// Random
+include('Libs/Strings.php');
+
 // Models core
 include('Core/Model.php');
 
@@ -63,6 +66,9 @@ if (count((new Route)::GetPathInfo()) > 0 &&
 // If was a MVC request
 else
 {
+    // Markdown
+    include('Libs/Parsedown.php');
+
     // Controllers core
     include('Core/Controller.php');
 

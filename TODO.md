@@ -7,8 +7,8 @@ Phase 0:
 - [X] View posts
 - [X] Users management
 - [ ] Posts managament
-- [ ] Markdown editor
-- [ ] Translate markdown
+- [X] Markdown editor
+- [X] Translate markdown
 - [ ] Multi language posts
 - [ ] Multi language UI
 - [ ] Authorization (Return UserId and role as response)

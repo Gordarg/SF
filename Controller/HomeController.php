@@ -19,10 +19,13 @@ class HomeController extends Controller {
         $Model = $this->CallModel("Post");
         $Rows = $Model->GetHomePagePosts();
 
+        // Initialize Parsedown (MarkDown to MarkUp converter)
+        $Parsedown = new Parsedown();
+
         for ($i = 0 ; $i < count($Rows) ; $i++)
         {
             $Rows[$i]['Title'] = utf8_decode($Rows[$i]['Title']);
-            $Rows[$i]['Body'] = utf8_decode($Rows[$i]['Body']);
+            $Rows[$i]['Body'] = Strings::GenerateAbstractForPost($Parsedown->text($Rows[$i]['Body']));
         }
 
         $Data = [
@@ -125,6 +128,8 @@ $items_str
         // Fetch the first and only record
         $Model = $Model[0];
 
+        // Initialize Parsedown (MarkDown to MarkUp converter)
+        $Parsedown = new Parsedown();
 
         // Prepare for render
         $Data = [
@@ -134,7 +139,8 @@ $items_str
                 'Id' => $Model['Id'],
                 'Language' => $Model['Language'],
                 'Title' => utf8_decode($Model['Title']),
-                'Body' => utf8_decode(htmlspecialchars_decode($Model['Body'])),
+                // 'Body' => utf8_decode(htmlspecialchars_decode($Model['Body'])),
+                'Body' => utf8_decode($Parsedown->text($Model['Body'])),
                 'Year' => $Model['Year'],
                 'Month' => $Model['Month'],
                 'Day' => $Model['Day'],
