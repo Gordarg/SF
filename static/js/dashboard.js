@@ -1,3 +1,6 @@
+// Some variables used global
+var simplemde = null;
+
 // Call MarkDown Editor
 function call_simplemde() {
         
@@ -5,7 +8,7 @@ function call_simplemde() {
         loaded_simplemde = true;
     // else return;
     
-    new SimpleMDE({
+    simplemde = new SimpleMDE({
         element: document.getElementsByName("body")[0],
         spellChecker: false,
     });
@@ -77,7 +80,7 @@ var fragmentidentifier = window.location.hash.substr(1);
 var parameter_1 = null;
 if (window.location.hash.substr(1).indexOf('#') != -1) {
     fragmentidentifier = window.location.hash.substr(1, window.location.hash.substr(1).indexOf('#'));
-    parameter_1 = window.location.hash.substr(1).substr(-1, window.location.hash.substr(1).indexOf('#')) || -1;
+    parameter_1 = window.location.hash.substr(1).substr(window.location.hash.substr(1).indexOf('#') + 1) || -1;
 }
 
 setgui(fragmentidentifier, parameter_1);
@@ -110,7 +113,7 @@ $(window).on('hashchange', function(e){
     parameter_1 = null;
     if (window.location.hash.substr(1).indexOf('#') != -1) {
         fragmentidentifier = window.location.hash.substr(1, window.location.hash.substr(1).indexOf('#'));
-        parameter_1 = window.location.hash.substr(1).substr(-1, window.location.hash.substr(1).indexOf('#')) || -1;
+        parameter_1 = window.location.hash.substr(1).substr(window.location.hash.substr(1).indexOf('#') + 1) || -1;
     }
 
     setgui(fragmentidentifier, parameter_1);
@@ -135,6 +138,7 @@ $(window).on('hashchange', function(e){
 function setgui(name, params = null){
     // Set window title
     document.title = name;
+    simplemde = null;
 
     // Load partial
     $('.content').load(baseurl + 'gui/view/' + name + '.htm', function() {

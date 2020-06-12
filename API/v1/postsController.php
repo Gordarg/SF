@@ -70,25 +70,39 @@ class postsController extends ApiController {
     }
     function PUT() {
 
+        $bincontent = null;
+        if (isset($this->RequestBody['content[]']))
+            // $bincontent = base64_encode(file_get_contents($this->RequestBody['content']['tmp_name'][0]));
+            $bincontent = base64_encode($this->RequestBody['content[]']);
+
         $Values = [
-            'MasterId' => (new Random())::GenerateGUID(),
+            'MasterId' =>$this->RequestBody['masterid'],
             'Title' => $this->RequestBody['title'],
-            'BinContent' => base64_encode(file_get_contents($this->RequestBody[0]['content']['tmp_name'][0])),
+            'BinContent' => $bincontent,
             'Body' => $this->RequestBody['body'],
             'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
             'Status' => $this->RequestBody['status'],
+            'IsContentDeleted' => isset($this->RequestBody['deletecontent']),
             'Language' => 'fa-IR' // $this->RequestBody['language'],
         ];
 
         $Model = $this->CallModel("Post");
         $Model->UpdatePost($Values);
 
-        parent::SendResponse(200, $this->RequestBody);
+        parent::SendResponse(200, "Post '" . $this->RequestBody['masterid'] . "' updated successfuly.");
     }
     function DELETE() {
+        $Values = [
+            'MasterId' =>$this->RequestBody['masterid'],
+            'Title' => $this->RequestBody['title'],
+            'Body' => $this->RequestBody['body'],
+            'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
+            'Language' => 'fa-IR' // $this->RequestBody['language'],
+        ];
+
         $Model = $this->CallModel("Post");
         $Model->DeletePost($Values);
 
-        parent::SendResponse(200, $this->RequestBody);
+        parent::SendResponse(200, "Post '" . $this->RequestBody['masterid'] . "' deleted successfuly.");
     }
 }

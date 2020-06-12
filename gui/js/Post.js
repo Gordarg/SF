@@ -1,21 +1,27 @@
 var mode = 'POST';
+
 $('#insert').show();
 $('#update').hide();
+$('#deletecontent').hide();
 $('#delete').hide();
-
 
 function Post(id) {
     mode = 'PUT';
     $('#id').val(id);
 
-    $('#insert').hide();
-    $('#update').show();
-    $('#delete').show();
-
+    if (id != null)
     $.get(baseurl + 'api/v1/posts/' + id, function (data, status) {
+        // Enable buttons
+        $('#insert').hide();
+        $('#update').show();
+        $('#deletecontent').show();
+        $('#delete').show();    
+        
+        // Set inputs values
         $('#masterid').val(data[0]['MasterId']);
         $('#title').val(data[0]['Title']);
         $('#body').val(data[0]['Body']);
+        simplemde.value($('#body').val());
         $('#masterid').val(data[0]['MasterId']);
     });
 
@@ -33,8 +39,13 @@ $("form#post").on('submit', function (event) {
     var data = new FormData();
     // Form data
     var formdata = $("form#post").serializeArray();
+
+    // Check if body is edited with editor
     $.each(formdata, function (key, input) {
-        data.append(input.name, input.value);
+        if (input.name == "body" && simplemde !== null)
+            data.append("body", simplemde.value());
+        else
+            data.append(input.name, input.value);
     });
     // File data
     var filedata = $('input[name="content"]')[0].files;
@@ -51,9 +62,6 @@ $("form#post").on('submit', function (event) {
         mode = "DELETE";
     else if (command == "Update")
         mode = "PUT";
-
-        alert(command);
-        alert(mode);
 
     // Post to server
     $.ajax({
@@ -72,6 +80,8 @@ $("form#post").on('submit', function (event) {
 
     // Clear form
     // $(event.target).trigger("reset");
+
+    window.location = baseurl + 'Admin/Interpreter#Posts';
 
 
 });

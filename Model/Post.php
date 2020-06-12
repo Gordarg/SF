@@ -61,9 +61,9 @@ class Post extends Model {
     function UpdatePost($Values) {
         $Query = '
         INSERT INTO `posts` (
-        MasterId, Title, BinContent, Body, UserId, `Status`, Language
+        MasterId, Title, BinContent, Body, UserId, `Status`, Language, IsContentDeleted
         ) VALUES (
-        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language
+        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language, :IsContentDeleted
         );
         ';
         $Result = $this->DoQuery($Query, $Values);
@@ -73,9 +73,9 @@ class Post extends Model {
     function DeletePost($Values) {
         $Query = '
         INSERT INTO `posts` (
-        MasterId, Title, BinContent, Body, UserId, `Status`, Language, IsDeleted
+        MasterId, Title, Body, UserId, `Status`, Language, IsDeleted
         ) VALUES (
-        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language, true
+        :MasterId, :Title, :Body, :UserId, \'DELETE\', :Language, true
         );
         ';
         $Result = $this->DoQuery($Query, $Values);
