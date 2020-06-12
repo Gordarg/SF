@@ -6,7 +6,7 @@ Phase 0:
 - [X] Show posts on homepage
 - [X] View posts
 - [X] Users management
-- [ ] Posts managament
+- [X] Posts managament
 - [X] Markdown editor
 - [X] Translate markdown
 - [ ] Multi language posts
@@ -17,6 +17,7 @@ Phase 0:
 - [ ] Manage, View and Link Categories
 - [ ] Emails and tickets
 - [ ] Dashboard Statistics (Hard Disk, Network Traffic, Firewall, Visits)
+- [ ] Paginate posts in home page and management
 
 Phase 1: Web site features (EMails & Tickets, Form buidler, )
 

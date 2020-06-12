@@ -1,4 +1,6 @@
 <form id="post" enctype="multipart/form-data">
+  <input id="id" name="id" type="hidden">
+  <input id="masterid" name="masterid" type="hidden">
   <div class="form-group">
     <label for="title">Title</label>
     <input id="title" name="title" type="text" class="form-control" placeholder="Enter post title">
@@ -20,5 +22,7 @@
     </select>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <input type="submit" class="btn btn-primary" id="insert" value="Submit" />
+  <input type="submit" class="btn btn-secondary" id="update" value="Update" />
+  <input type="submit" class="btn btn-warning" id="delete" value="Delete" />
 </form>

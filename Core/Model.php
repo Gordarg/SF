@@ -53,7 +53,10 @@ class Model{
     {
         $LiveConnection = self::$Connection->prepare($Query);
         foreach ($Values as $Key => $Value) {
-            $LiveConnection->bindValue($Key, $Value);
+            if (gettype($Value) == "integer" || gettype($Value) == "boolean") // Recommended for bit(1) values
+                $LiveConnection->bindValue($Key, $Value, PDO::PARAM_INT);
+            else
+                $LiveConnection->bindValue($Key, $Value);
         }
         $LiveConnection->execute();
         $Result = $LiveConnection->fetchAll($FetchStyle);

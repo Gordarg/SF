@@ -37,9 +37,13 @@ class Post extends Model {
         return $Result;
     }
 
-    function GetAllPosts() {
-        $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`, `UserId`, `Username`, `Status`, `Language` FROM `post_details` ORDER BY `Id` DESC";
-        $Result = $this->DoSelect($Query);
+    function GetAllPosts($Values) {
+        $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`, `UserId`, `Username`, `Status`, `Language`
+        FROM `post_details`
+        ORDER BY `Id` DESC
+        limit :From, :To
+        ";
+        $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }
 
@@ -55,14 +59,37 @@ class Post extends Model {
     }
     
     function UpdatePost($Values) {
-        $Query = 'UPDATE `Posts` SET `Title` = :Title, `Abstract` = :Abstract, `Body` = :Body, `Type` = :Type, `FileName` = :FileName WHERE `Id`=:Id';
+        $Query = '
+        INSERT INTO `posts` (
+        MasterId, Title, BinContent, Body, UserId, `Status`, Language
+        ) VALUES (
+        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language
+        );
+        ';
         $Result = $this->DoQuery($Query, $Values);
         return $Result;
     }
 
     function DeletePost($Values) {
-        $Query = 'DELETE FROM `Posts` WHERE `Id`=:Id';
+        $Query = '
+        INSERT INTO `posts` (
+        MasterId, Title, BinContent, Body, UserId, `Status`, Language, IsDeleted
+        ) VALUES (
+        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language, true
+        );
+        ';
         $Result = $this->DoQuery($Query, $Values);
+        return $Result;
+    }
+
+    function DeletePostContent($Values) {
+        // TODO:
+    }
+
+    function GetPostById($Values) {
+        $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`,
+        `Body`, `UserId`, `Language`, `IsContentDeleted`, `IsDeleted` FROM `posts` WHERE `Id`=:Id LIMIT 1";
+        $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }
 

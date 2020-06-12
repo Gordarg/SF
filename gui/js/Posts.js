@@ -5,7 +5,7 @@ function Posts(){ // Constructor class
         data.forEach(obj => {
             $("tbody").append('<tr>'
                 + '<th scope="row">'
-                + '<a href="' + baseurl + "say/" + obj["Language"] + '/' + obj['MasterId'] +'">Edit</a>'
+                + '<a href="' + baseurl + "Admin/Interpreter#Post#" + obj['Id'] + '">Edit</a>'
                 + '</th>'
                 + '<td>' + obj["Title"] + '</td>'
                 + '<td>' + obj["Submit"] + '</td>'

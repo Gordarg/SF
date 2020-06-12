@@ -100,14 +100,19 @@ class ApiApp
 		}
 		// Call the method if exists
 		if (!method_exists($ClassObject, $ControllerMethod))
-			$ClassObject->SendResponse(404,'Not Found');
+			$ClassObject->SendResponse(404,'Controller Method Not Found.');
 		try {
+			// Set url passed paramters
+			unset($URL[0]);
+			unset($URL[1]);
+			unset($URL[2]);
+			$Params = array_values($URL);
 			// Call the method
-			call_user_func_array([$ClassObject, $ControllerMethod], $ClassObject->RequestBody);
+			call_user_func_array([$ClassObject, $ControllerMethod], $Params);
 		} catch (AuthException $exp ){ // On auth error
-			$ClassObject->SendResponse(401,'Login Required.');
+			$ClassObject->SendResponse(401, $exp->getMessage());
 		} catch (NotFoundException $exp ){ // on not found error
-			$ClassObject->SendResponse(404,'Resource Not Found.');
+			$ClassObject->SendResponse(404, $exp->getMessage());
 		}
 
 

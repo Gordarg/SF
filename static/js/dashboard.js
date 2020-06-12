@@ -1,6 +1,6 @@
 // Call MarkDown Editor
 function call_simplemde() {
-    
+        
     if (!loaded_simplemde)
         loaded_simplemde = true;
     // else return;
@@ -74,7 +74,13 @@ function call_dropdownlist() {
 
 // Change the view
 var fragmentidentifier = window.location.hash.substr(1);
-setgui(fragmentidentifier);
+var parameter_1 = null;
+if (window.location.hash.substr(1).indexOf('#') != -1) {
+    fragmentidentifier = window.location.hash.substr(1, window.location.hash.substr(1).indexOf('#'));
+    parameter_1 = window.location.hash.substr(1).substr(-1, window.location.hash.substr(1).indexOf('#')) || -1;
+}
+
+setgui(fragmentidentifier, parameter_1);
 
 // Load File Uploader
 loadStyle(baseurl + "static/css/ezdz.css");
@@ -100,8 +106,14 @@ var loaded_dropdownlist = false, loaded_simplemde = false, loaded_uploader = fal
 
 
 $(window).on('hashchange', function(e){    
-    var fragmentidentifier = window.location.hash.substr(1);
-    setgui(fragmentidentifier);
+    fragmentidentifier = window.location.hash.substr(1);
+    parameter_1 = null;
+    if (window.location.hash.substr(1).indexOf('#') != -1) {
+        fragmentidentifier = window.location.hash.substr(1, window.location.hash.substr(1).indexOf('#'));
+        parameter_1 = window.location.hash.substr(1).substr(-1, window.location.hash.substr(1).indexOf('#')) || -1;
+    }
+
+    setgui(fragmentidentifier, parameter_1);
 
     // $.when(
     //     setgui(fragmentidentifier),
@@ -121,7 +133,10 @@ $(window).on('hashchange', function(e){
 
 // Set view function
 function setgui(name, params = null){
+    // Set window title
+    document.title = name;
 
+    // Load partial
     $('.content').load(baseurl + 'gui/view/' + name + '.htm', function() {
         $.getScript(baseurl + 'gui/js/' + name + '.js').done(function(script, textstatus) {
             // Construct
