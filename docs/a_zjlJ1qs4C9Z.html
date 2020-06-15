@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/good-feeling.css">
+    <title>SnowFramework2</title>
+</head>
+<body>
+<header>
+    <h1>SnowFramework2 Docs</h1>
+</header><ul class="navigation">درباره<li><a href="a_ZBf0yVya_v3.html#content">اسنو‌فریم‌ورک</a></li><li><a href="a_WI2DeODGdbn.html#content">معماری</a></li><li><a href="a_9I8a1d9TVfT.html#content">مدیریت وبلاگ</a></li><li><a href="a_vGquDsy5Alp.html#content">تاریخچه</a></li>Installation<li><a href="a_81a-HXmkptB.html#content">Linux LAMP Server</a></li><li><a href="a_XmLiPzc64Tm.html#content">Linux File Permissions</a></li><li><a href="a_H5-UxNxew7G.html#content">Linux Network</a></li><li><a href="a_LawAwdC8jiS.html#content">Uploads</a></li><li><a href="a_ei-xsH9h0ez.html#content">Git</a></li><li><a href="a_Nkt39bPCG9Y.html#content">Database</a></li><li><a href="a_BgJv0MinizQ.html#content">Linux Services</a></li><li><a href="a_FBKtEunxi7K.html#content">Linux Timezone</a></li><li><a href="a_zjlJ1qs4C9Z.html#content">MySQL Level Activity Log</a></li>Development<li><a href="a_ubsMAomRAXy.html#content">Models</a></li><li><a href="a_xCO4eDAw0F_.html#content">Views</a></li><li><a href="a_NfX1VfqiKVi.html#content">Controllers</a></li><li><a href="a_HCa_2ogJ1rB.html#content">Apache Level Log</a></li><li><a href="a_1THfS-WvvwG.html#content">Authentication</a></li><li><a href="a_s-hVFN5EBps.html#content">Errors</a></li><li><a href="a_SDNSgJzASDw.html#content">IDE</a></li><li><a href="a_Xkd5fz1sYRd.html#content">SASS</a></li><li><a href="a_0dtdjpWrD0D.html#content">Jalali Date Time</a></li><li><a href="a_vO7gbwaXLD0.html#content">Cryptography</a></li></ul><div id="content" class="content"><a class="edit" href="https://github.com/Gordarg/SF/edit/master/docs/content/Installation/MySQL Level Activity Log.md">Edit this file</a><p>This document describes how to enable users MySQL log for more detailed monitoring (Not recommended because of disk limitations)</p>
+
+<p>Make the mysql.general_log table MyISAM instead of CSV</p>
+
+<p>Run the following:</p>
+
+<p><pre><code>
+CREATE TABLE mysql.general_log_original LIKE mysql.general_log;
+ALTER TABLE mysql.general_log ENGINE=MyISAM;
+ALTER TABLE mysql.general_log ADD INDEX (event_time);
+Enable the general log
+</code></pre></p>
+
+<p>Add the following to /etc/my.cnf or /etc/mysql/mysql.conf.d/</p>
+
+<p><pre><code>
+    [mysqld]
+    log-output=TABLE
+    general-log
+</code></pre></p>
+
+<p>If you also want the text version of the general log, add this:</p>
+
+<p><pre><code>
+    [mysqld]
+    log-output=TABLE,FILE
+    general-log
+    general-log-file=/var/log/mysql_general.log
+</code></pre></p>
+
+<p>Restart mysql</p>
+
+<pre><code>sudo service mysql restart
+</code></pre>
+
+<p>Create a general_log table inside custom database:</p>
+
+<p><pre><code>
+SHOW CREATE TABLE mysql.general_log
+-- Use the result above to create our own log table
+-- Then use the cron job command below to move logs to our own table
+mysql -e "insert into snowframework.mysql_general_log select * from mysql.general_log where user_host like '%[db]%"
+mysql -e "truncate mysql.general_log"
+</code></pre></p>
+</div><footer>&copy; 2020</footer>
+</body>
+</html>

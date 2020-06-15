@@ -11,6 +11,7 @@ Phase 0:
 - [X] Translate markdown
 - [ ] Multi language posts
 - [ ] Multi language UI
+- [ ] Token authentication
 - [ ] Authorization (Return UserId and role as response)
 - [ ] Users role management & Define new users
 - [ ] Seach on homepage

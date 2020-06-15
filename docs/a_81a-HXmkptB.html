@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/good-feeling.css">
+    <title>SnowFramework2</title>
+</head>
+<body>
+<header>
+    <h1>SnowFramework2 Docs</h1>
+</header><ul class="navigation">درباره<li><a href="a_ZBf0yVya_v3.html#content">اسنو‌فریم‌ورک</a></li><li><a href="a_WI2DeODGdbn.html#content">معماری</a></li><li><a href="a_9I8a1d9TVfT.html#content">مدیریت وبلاگ</a></li><li><a href="a_vGquDsy5Alp.html#content">تاریخچه</a></li>Installation<li><a href="a_81a-HXmkptB.html#content">Linux LAMP Server</a></li><li><a href="a_XmLiPzc64Tm.html#content">Linux File Permissions</a></li><li><a href="a_H5-UxNxew7G.html#content">Linux Network</a></li><li><a href="a_LawAwdC8jiS.html#content">Uploads</a></li><li><a href="a_ei-xsH9h0ez.html#content">Git</a></li><li><a href="a_Nkt39bPCG9Y.html#content">Database</a></li><li><a href="a_BgJv0MinizQ.html#content">Linux Services</a></li><li><a href="a_FBKtEunxi7K.html#content">Linux Timezone</a></li><li><a href="a_zjlJ1qs4C9Z.html#content">MySQL Level Activity Log</a></li>Development<li><a href="a_ubsMAomRAXy.html#content">Models</a></li><li><a href="a_xCO4eDAw0F_.html#content">Views</a></li><li><a href="a_NfX1VfqiKVi.html#content">Controllers</a></li><li><a href="a_HCa_2ogJ1rB.html#content">Apache Level Log</a></li><li><a href="a_1THfS-WvvwG.html#content">Authentication</a></li><li><a href="a_s-hVFN5EBps.html#content">Errors</a></li><li><a href="a_SDNSgJzASDw.html#content">IDE</a></li><li><a href="a_Xkd5fz1sYRd.html#content">SASS</a></li><li><a href="a_0dtdjpWrD0D.html#content">Jalali Date Time</a></li><li><a href="a_vO7gbwaXLD0.html#content">Cryptography</a></li></ul><div id="content" class="content"><a class="edit" href="https://github.com/Gordarg/SF/edit/master/docs/content/Installation/Linux LAMP Server.md">Edit this file</a><h1>Installation Guide for Ubuntu Server (LAMP and Userinterface)</h1>
+
+<blockquote>
+  <p>We declared <pre><code>ubuntu</code></pre> as username
+  and also <pre><code>/home/ubuntu/snowframework</code></pre> as project directory after git clone</p>
+</blockquote>
+
+<h1>0. Upgrade packages</h1>
+
+<p><pre><code>
+sudo apt update
+sudo apt upgrade
+</code></pre></p>
+
+<h1>1. Install "Linux Apahce, MySQL, PHP Server" (LAMP Server)</h1>
+
+<p><pre><code>
+sudo apt install tasksel
+sudo tasksel install lamp-server
+</code></pre></p>
+
+<h1>2. Change web server root</h1>
+
+<h2>File to edit</h2>
+
+<p><pre><code>
+sudo vi /etc/apache2/apache2.conf
+</code></pre></p>
+
+<h2>Content to edit</h2>
+
+<p><pre><code>
+&lt;DocumentRoot /home/ubuntu/snowframework&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+&lt;/DocumentRoot&gt;
+</code></pre></p>
+
+<h2>File to edit</h2>
+
+<p><pre><code>
+sudo vi /etc/apache2/sites-available/000-default.conf
+</code></pre></p>
+
+<h2>Content to edit</h2>
+
+<p><pre><code>
+DocumentRoot /home/ubuntu/snowframework
+</code></pre></p>
+
+<h2>Add user to group</h2>
+
+<p><pre><code>
+adduser ubuntu www-data
+</code></pre></p>
+
+<h2>Give group permssion to access files</h2>
+
+<blockquote>
+  <p>To prevent (HTTP Forbidden Error 403)</p>
+</blockquote>
+
+<p><pre><code>
+chmod g+rw -R /home/ubuntu/snowframework
+chown www-data:www-data -R /home/ubuntu/snowframework
+</code></pre></p>
+
+<h1>3. Initialize Database</h1>
+
+<h2>PASSWORD METHOD 1: set mysql password</h2>
+
+<p><pre><code>
+sudo mysql_secure_installation
+</code></pre></p>
+
+<h2>PASSWORD METHOD 2: if METHOD 1 doesn't work</h2>
+
+<p><pre><code>
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PASSWORDHERE';
+</code></pre></p>
+
+<h2>PASSWORD METHOD 3: if METHOD 2 doesn't work</h2>
+
+<blockquote>
+  <p>set password manually</p>
+</blockquote>
+
+<h3>stop mysql service</h3>
+
+<p><pre><code>
+sudo service mysql stop
+</code></pre></p>
+
+<h3>skip grant tables (step A)</h3>
+
+<p>edit the file:
+<pre><code>
+sudo vi sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+</code></pre></p>
+
+<p>add the line below in <em>[mysqld]</em> section:
+<pre><code>
+skip-grant-tables
+</code></pre></p>
+
+<h3>restart the service</h3>
+
+<p><pre><code>
+sudo service mysql restart
+</code></pre></p>
+
+<h3>connect to mysql command line interface</h3>
+
+<p><pre><code>
+mysql -u root
+</code></pre></p>
+
+<h3>set password</h3>
+
+<p><pre><code>
+mysql&gt; use mysql;
+mysql&gt; UPDATE user SET authentication_string=password('PASSWORDHERE') WHERE user='root';
+mysql&gt; flush privileges;
+</code></pre></p>
+
+<h3>re-enable grant tables</h3>
+
+<p>comment out the line added in step A</p>
+
+<h2>CREATE DATABASE</h2>
+
+<h3>connect to cli</h3>
+
+<p><pre><code>
+mysql -u root -p
+mysql&gt; password: PASSWORDHERE
+</code></pre></p>
+
+<h3>create an empty database</h3>
+
+<p><pre><code>
+mysql&gt; create database snowframework;
+mysql&gt; use snowframework;
+</code></pre></p>
+
+<h3>run the database query</h3>
+
+<p>Copy and paste the code in file <a href="../db/db.my.sql">db/db.my.sql</a></p>
+
+<h1>4. Configure application</h1>
+
+<h2>USER INTERFACE CONFIG: Init config file and edit</h2>
+
+<p><pre><code>
+cd /home/ubuntu/snowframework/userinterface
+cp config.sample.php config.php
+vi config.php
+</code></pre></p>
+
+<p>then set correct info</p>
+</div><footer>&copy; 2020</footer>
+</body>
+</html>
