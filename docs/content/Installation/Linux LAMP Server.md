@@ -1,8 +1,8 @@
 Installation Guide for Ubuntu Server (LAMP and Userinterface)
 ===
 
-> We declared `ubuntu` as username
-> and also `/home/ubuntu/snowframework` as project directory after git clone
+> We declared `USERNAMEHERE` as username
+> and also `/home/USERNAMEHERE/snowframework` as project directory after git clone
 
 # 0. Upgrade packages
 
@@ -27,7 +27,7 @@ sudo vi /etc/apache2/apache2.conf
 
 ## Content to edit
 ```
-<DocumentRoot /home/ubuntu/snowframework>
+<DocumentRoot /home/USERNAMEHERE/snowframework>
         Options Indexes FollowSymLinks
         AllowOverride None
         Require all granted
@@ -41,7 +41,7 @@ sudo vi /etc/apache2/sites-available/000-default.conf
 
 ## Content to edit
 ```
-DocumentRoot /home/ubuntu/snowframework
+DocumentRoot /home/USERNAMEHERE/snowframework
 ```
 
 ## Add user to group
@@ -54,8 +54,8 @@ adduser ubuntu www-data
 > To prevent (HTTP Forbidden Error 403)
 
 ```
-chmod g+rw -R /home/ubuntu/snowframework
-chown www-data:www-data -R /home/ubuntu/snowframework
+chmod g+rw -R /home/USERNAMEHERE/snowframework
+chown www-data:www-data -R /home/USERNAMEHERE/snowframework
 ```
 
 # 3. Initialize Database
@@ -138,7 +138,7 @@ Copy and paste the code in file [db/db.my.sql](../db/db.my.sql)
 
 ## USER INTERFACE CONFIG: Init config file and edit
 ```
-cd /home/ubuntu/snowframework/userinterface
+cd /home/USERNAMEHERE/snowframework/userinterface
 cp config.sample.php config.php
 vi config.php
 ```

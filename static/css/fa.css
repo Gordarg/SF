@@ -1,9 +1,0 @@
-@font-face {
-    font-family: Sahel;
-    src: url("../fonts/Sahel.ttf");
-}
-* {
-    font-family: Sahel !important;
-    direction: rtl;
-    text-align: right;
-}

@@ -13,8 +13,8 @@
 </header><ul class="navigation">درباره<li><a href="a_ZBf0yVya_v3.html#content">اسنو‌فریم‌ورک</a></li><li><a href="a_WI2DeODGdbn.html#content">معماری</a></li><li><a href="a_9I8a1d9TVfT.html#content">مدیریت وبلاگ</a></li><li><a href="a_vGquDsy5Alp.html#content">تاریخچه</a></li>Installation<li><a href="a_81a-HXmkptB.html#content">Linux LAMP Server</a></li><li><a href="a_XmLiPzc64Tm.html#content">Linux File Permissions</a></li><li><a href="a_H5-UxNxew7G.html#content">Linux Network</a></li><li><a href="a_LawAwdC8jiS.html#content">Uploads</a></li><li><a href="a_ei-xsH9h0ez.html#content">Git</a></li><li><a href="a_Nkt39bPCG9Y.html#content">Database</a></li><li><a href="a_BgJv0MinizQ.html#content">Linux Services</a></li><li><a href="a_FBKtEunxi7K.html#content">Linux Timezone</a></li><li><a href="a_zjlJ1qs4C9Z.html#content">MySQL Level Activity Log</a></li>Development<li><a href="a_ubsMAomRAXy.html#content">Models</a></li><li><a href="a_xCO4eDAw0F_.html#content">Views</a></li><li><a href="a_NfX1VfqiKVi.html#content">Controllers</a></li><li><a href="a_HCa_2ogJ1rB.html#content">Apache Level Log</a></li><li><a href="a_1THfS-WvvwG.html#content">Authentication</a></li><li><a href="a_s-hVFN5EBps.html#content">Errors</a></li><li><a href="a_SDNSgJzASDw.html#content">IDE</a></li><li><a href="a_Xkd5fz1sYRd.html#content">SASS</a></li><li><a href="a_0dtdjpWrD0D.html#content">Jalali Date Time</a></li><li><a href="a_vO7gbwaXLD0.html#content">Cryptography</a></li></ul><div id="content" class="content"><a class="edit" href="https://github.com/Gordarg/SF/edit/master/docs/content/Installation/Linux LAMP Server.md">Edit this file</a><h1>Installation Guide for Ubuntu Server (LAMP and Userinterface)</h1>
 
 <blockquote>
-  <p>We declared <pre><code>ubuntu</code></pre> as username
-  and also <pre><code>/home/ubuntu/snowframework</code></pre> as project directory after git clone</p>
+  <p>We declared <pre><code>USERNAMEHERE</code></pre> as username
+  and also <pre><code>/home/USERNAMEHERE/snowframework</code></pre> as project directory after git clone</p>
 </blockquote>
 
 <h1>0. Upgrade packages</h1>
@@ -42,7 +42,7 @@ sudo vi /etc/apache2/apache2.conf
 <h2>Content to edit</h2>
 
 <p><pre><code>
-&lt;DocumentRoot /home/ubuntu/snowframework&gt;
+&lt;DocumentRoot /home/USERNAMEHERE/snowframework&gt;
         Options Indexes FollowSymLinks
         AllowOverride None
         Require all granted
@@ -58,7 +58,7 @@ sudo vi /etc/apache2/sites-available/000-default.conf
 <h2>Content to edit</h2>
 
 <p><pre><code>
-DocumentRoot /home/ubuntu/snowframework
+DocumentRoot /home/USERNAMEHERE/snowframework
 </code></pre></p>
 
 <h2>Add user to group</h2>
@@ -74,8 +74,8 @@ adduser ubuntu www-data
 </blockquote>
 
 <p><pre><code>
-chmod g+rw -R /home/ubuntu/snowframework
-chown www-data:www-data -R /home/ubuntu/snowframework
+chmod g+rw -R /home/USERNAMEHERE/snowframework
+chown www-data:www-data -R /home/USERNAMEHERE/snowframework
 </code></pre></p>
 
 <h1>3. Initialize Database</h1>
@@ -165,7 +165,7 @@ mysql&gt; use snowframework;
 <h2>USER INTERFACE CONFIG: Init config file and edit</h2>
 
 <p><pre><code>
-cd /home/ubuntu/snowframework/userinterface
+cd /home/USERNAMEHERE/snowframework/userinterface
 cp config.sample.php config.php
 vi config.php
 </code></pre></p>
