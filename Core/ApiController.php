@@ -77,11 +77,11 @@ class ApiController extends Middleware
     function CheckLogin($Role = 'admin')
     {
         // If values not set
-        if (isset($_SERVER['PHP_AUTH_Person']))
+        if (isset($_SERVER['PHP_AUTH_USER']))
         {
             // Get values from HTTP Authenticate
             $Values = [
-                'Username' => $_SERVER['PHP_AUTH_Person'],
+                'Username' => $_SERVER['PHP_AUTH_USER'],
                 'Password' => (new Cryptography())->Encrypt($_SERVER['PHP_AUTH_PW'])
             ];
             // Check with DB

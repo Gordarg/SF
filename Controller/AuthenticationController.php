@@ -34,7 +34,7 @@ class AuthenticationController extends Controller {
         if ($Login) {
             
             // Set cookies
-            setcookie("Username", $_SERVER['PHP_AUTH_Person'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
+            setcookie("Username", $_SERVER['PHP_AUTH_USER'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
             setcookie("Password", $_SERVER['PHP_AUTH_PW'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
             
             // Response redirect

@@ -108,7 +108,7 @@ class ApiApp
 			unset($URL[2]);
 			$Params = array_values($URL);
 			// Call the method
-			call_Person_func_array([$ClassObject, $ControllerMethod], $Params);
+			call_user_func_array([$ClassObject, $ControllerMethod], $Params);
 		} catch (AuthException $exp ){ // On auth error
 			$ClassObject->SendResponse(401, $exp->getMessage());
 		} catch (NotFoundException $exp ){ // on not found error
