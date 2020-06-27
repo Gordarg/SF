@@ -669,9 +669,9 @@ class Services_JSON
 //     class Services_JSON_Error extends PEAR_Error
 //     {
 //         function Services_JSON_Error($message = 'unknown error', $code = null,
-//                                      $mode = null, $options = null, $userinfo = null)
+//                                      $mode = null, $options = null, $Personinfo = null)
 //         {
-//             parent::PEAR_Error($message, $code, $mode, $options, $userinfo);
+//             parent::PEAR_Error($message, $code, $mode, $options, $Personinfo);
 //         }
 //     }
 // } else {
@@ -681,7 +681,7 @@ class Services_JSON
 //     class Services_JSON_Error
 //     {
 //         function Services_JSON_Error($message = 'unknown error', $code = null,
-//                                      $mode = null, $options = null, $userinfo = null)
+//                                      $mode = null, $options = null, $Personinfo = null)
 //         {
 //         }
 //     }

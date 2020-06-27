@@ -38,7 +38,7 @@ class Post extends Model {
     }
 
     function GetAllPosts($Values) {
-        $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`, `UserId`, `Username`, `Status`, `Language`
+        $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`, `PersonId`, `Username`, `Status`, `Language`
         FROM `post_details`
         ORDER BY `Id` DESC
         limit :From, :To
@@ -50,9 +50,9 @@ class Post extends Model {
     function InsertPost($Values) {
         $Query = '
         INSERT INTO `posts` (
-        MasterId, Title, BinContent, Body, UserId, `Status`, Language
+        MasterId, Title, BinContent, Body, PersonId, `Status`, Language
         ) VALUES (
-        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language
+        :MasterId, :Title, :BinContent, :Body, :PersonId, :Status, :Language
         );';
         $Result = $this->DoQuery($Query, $Values);
         return $Result;
@@ -61,9 +61,9 @@ class Post extends Model {
     function UpdatePost($Values) {
         $Query = '
         INSERT INTO `posts` (
-        MasterId, Title, BinContent, Body, UserId, `Status`, Language, IsContentDeleted
+        MasterId, Title, BinContent, Body, PersonId, `Status`, Language, IsContentDeleted
         ) VALUES (
-        :MasterId, :Title, :BinContent, :Body, :UserId, :Status, :Language, :IsContentDeleted
+        :MasterId, :Title, :BinContent, :Body, :PersonId, :Status, :Language, :IsContentDeleted
         );
         ';
         $Result = $this->DoQuery($Query, $Values);
@@ -73,9 +73,9 @@ class Post extends Model {
     function DeletePost($Values) {
         $Query = '
         INSERT INTO `posts` (
-        MasterId, Title, Body, UserId, `Status`, Language, IsDeleted
+        MasterId, Title, Body, PersonId, `Status`, Language, IsDeleted
         ) VALUES (
-        :MasterId, :Title, :Body, :UserId, \'DELETE\', :Language, true
+        :MasterId, :Title, :Body, :PersonId, \'DELETE\', :Language, true
         );
         ';
         $Result = $this->DoQuery($Query, $Values);
@@ -88,14 +88,14 @@ class Post extends Model {
 
     function GetPostById($Values) {
         $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`,
-        `Body`, `UserId`, `Language`, `IsContentDeleted`, `IsDeleted` FROM `posts` WHERE `Id`=:Id LIMIT 1";
+        `Body`, `PersonId`, `Language`, `IsContentDeleted`, `IsDeleted` FROM `posts` WHERE `Id`=:Id LIMIT 1";
         $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }
 
     function GetPostByMasterId($Values) {
         $Query = "SELECT `MasterId`, `Id`, `Title`, `Submit`,
-        `Body`, `UserId`, `Username`, `Language` FROM `post_details` WHERE `MasterId`=:MasterId LIMIT 1";
+        `Body`, `PersonId`, `Username`, `Language` FROM `post_details` WHERE `MasterId`=:MasterId LIMIT 1";
         $Result = $this->DoSelect($Query, $Values);
         return $Result;
     }

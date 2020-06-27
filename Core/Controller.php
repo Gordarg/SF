@@ -41,9 +41,9 @@ class Controller extends Middleware{
             "HTTP_SEC_FETCH_DEST" => isset($_SERVER["HTTP_SEC_FETCH_DEST"]) ? $_SERVER["HTTP_SEC_FETCH_DEST"] : "",
             "HTTP_SEC_FETCH_MODE" => isset($_SERVER["HTTP_SEC_FETCH_MODE"]) ? $_SERVER["HTTP_SEC_FETCH_MODE"] : "",
             "HTTP_SEC_FETCH_SITE" => isset($_SERVER["HTTP_SEC_FETCH_SITE"]) ? $_SERVER["HTTP_SEC_FETCH_SITE"] : "",
-            "HTTP_SEC_FETCH_USER" => isset($_SERVER["HTTP_SEC_FETCH_USER"]) ? $_SERVER["HTTP_SEC_FETCH_USER"] : "",
+            "HTTP_SEC_FETCH_Person" => isset($_SERVER["HTTP_SEC_FETCH_Person"]) ? $_SERVER["HTTP_SEC_FETCH_Person"] : "",
             "HTTP_UPGRADE_INSECURE_REQUESTS" => isset($_SERVER["HTTP_UPGRADE_INSECURE_REQUESTS"]) ? $_SERVER["HTTP_UPGRADE_INSECURE_REQUESTS"] : "",
-            "HTTP_USER_AGENT" => isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : "",
+            "HTTP_Person_AGENT" => isset($_SERVER["HTTP_Person_AGENT"]) ? $_SERVER["HTTP_Person_AGENT"] : "",
             "PATH" => isset($_SERVER["PATH"]) ? $_SERVER["PATH"] : "",
             "PATH_INFO" => isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "",
             "PATH_TRANSLATED" => isset($_SERVER["PATH_TRANSLATED"]) ? $_SERVER["PATH_TRANSLATED"] : "",
@@ -221,7 +221,7 @@ class Controller extends Middleware{
     /**
      * CheckLogin
      *
-     * Check the auth for user
+     * Check the auth for Person
      * 
      * @param  mixed $Role
      *
@@ -230,11 +230,11 @@ class Controller extends Middleware{
     function CheckLogin($Role = 'admin')
     {
         // If values not set
-        if (isset($_SERVER['PHP_AUTH_USER']))
+        if (isset($_SERVER['PHP_AUTH_Person']))
         {
             // Get values from HTTP Authenticate
             $Values = [
-                'Username' => $_SERVER['PHP_AUTH_USER'],
+                'Username' => $_SERVER['PHP_AUTH_Person'],
                 'Password' => $_SERVER['PHP_AUTH_PW']
             ];
             // Check with DB

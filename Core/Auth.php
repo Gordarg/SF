@@ -18,7 +18,7 @@ class Auth {
     /**
      * CheckLogin
      *
-     * Checks the user role and login
+     * Checks the Person role and login
      * 
      * @param  mixed $Data
      * @param  mixed $Role
@@ -35,7 +35,7 @@ class Auth {
         ];
 
         $Model = $this->ParentController->CallModel('Authentication');
-        $Entity = $Model->ValidateUserPass($Values);
+        $Entity = $Model->ValidatePersonPass($Values);
 
         // TODO: Check sessions
 

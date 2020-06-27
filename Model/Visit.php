@@ -22,10 +22,10 @@ class Visit extends Model {
     function GroupedVisitCountByAgent() {
         $Query = 'SELECT
         COUNT(*) as TotalRequests,
-        HTTP_USER_AGENT as Agent
+        HTTP_Person_AGENT as Agent
         FROM `visits`
         WHERE `Submit` > DATE_ADD(NOW(), INTERVAL -90 DAY) -- Limit for three monthes
-        GROUP BY `HTTP_USER_AGENT`
+        GROUP BY `HTTP_Person_AGENT`
         ';
         $Result = $this->DoSelect($Query);
         return $Result;

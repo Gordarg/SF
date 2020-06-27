@@ -94,11 +94,11 @@ class App {
             $this->ThowError(404);
         // Call the function
         if (_Debug)
-            call_user_func_array([$ClassObject, $ControllerMethod], $this->Params);
+            call_Person_func_array([$ClassObject, $ControllerMethod], $this->Params);
         else
             try {
                 // Call the view
-                call_user_func_array([$ClassObject, $ControllerMethod], $this->Params);
+                call_Person_func_array([$ClassObject, $ControllerMethod], $this->Params);
             } catch (AuthException $exp ){ // On auth error
                     $this->ThowError(403);
             } catch (NotFoundException $exp ){ // on not found error

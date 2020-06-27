@@ -29,7 +29,7 @@ include('Libs/Cryptography.php');
 // Random
 include('Libs/Random.php');
 
-// Random
+// Strings
 include('Libs/Strings.php');
 
 // Models core

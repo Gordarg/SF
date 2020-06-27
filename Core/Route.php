@@ -3,7 +3,7 @@ class Route {
     /**
      * GetPathInfo
      *
-     * Returns URL requested by user
+     * Returns URL requested by Person
      * 
      * @return array
      */

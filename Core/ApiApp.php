@@ -64,7 +64,7 @@ class ApiApp
 							list(, $type, $name) = $matches;
 							isset($matches[4]) and $filename = $matches[4]; 
 							switch ($name) {
-								case 'userfile':
+								case 'Personfile':
 									file_put_contents($filename, $body);
 									break;
 								default: 
@@ -108,7 +108,7 @@ class ApiApp
 			unset($URL[2]);
 			$Params = array_values($URL);
 			// Call the method
-			call_user_func_array([$ClassObject, $ControllerMethod], $Params);
+			call_Person_func_array([$ClassObject, $ControllerMethod], $Params);
 		} catch (AuthException $exp ){ // On auth error
 			$ClassObject->SendResponse(401, $exp->getMessage());
 		} catch (NotFoundException $exp ){ // on not found error

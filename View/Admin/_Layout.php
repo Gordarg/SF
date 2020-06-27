@@ -51,7 +51,7 @@
             </h6>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/Users' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/People' ?>">
                     مدیریت کاربر‌ها
                 </a>
                 </li>

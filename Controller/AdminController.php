@@ -48,19 +48,19 @@ class AdminController extends Controller {
 
 
     /**
-     * UsersGET
+     * PeopleGET
      *
      * List the posts
      * 
      * @return void
      */
-    function UsersGET() {
+    function PeopleGET() {
 
         $this->CheckLogin('admin'); // Check login
 
         // Ask database for data
-        $Model = $this->CallModel("User");
-        $Rows = $Model->GetAllUsers();
+        $Model = $this->CallModel("Person");
+        $Rows = $Model->GetAllPeople();
 
         // Package the response
         $Data = [
@@ -69,20 +69,20 @@ class AdminController extends Controller {
         ];
         
         // Render the view
-        $this->Render('Users', $Data);
+        $this->Render('People', $Data);
 
         
     }
 
 
     /**
-     * UserGET
+     * PersonGET
      *
-     * Get a user details and managment stuff
+     * Get a Person details and managment stuff
      * 
      * @return void
      */
-    function UserGET($Id = 0) {
+    function PersonGET($Id = 0) {
 
         $this->CheckLogin(); // Check login
 
@@ -90,8 +90,8 @@ class AdminController extends Controller {
         // Check if Id is passed to function
         if ($Id != 0)
         {
-            $Model = $this->CallModel("User");
-            $Rows = $Model->GetUserById([
+            $Model = $this->CallModel("Person");
+            $Rows = $Model->GetPersonById([
                 'Id' => $Id,
             ]);
 
@@ -105,7 +105,7 @@ class AdminController extends Controller {
                 'Model' => $Row
             ];
             
-            $this->Render('User', $Data);
+            $this->Render('Person', $Data);
 
         }
         // If it was insert
@@ -118,13 +118,13 @@ class AdminController extends Controller {
 
 
     /**
-     * UserPOST
+     * PersonPOST
      *
-     * Update user details
+     * Update Person details
      * 
      * @return void
      */
-    function UserPOST($Id = 0) {
+    function PersonPOST($Id = 0) {
         
         $this->CheckLogin(); // Check login
 
@@ -132,13 +132,13 @@ class AdminController extends Controller {
         if ($Id != 0)
         {
             // Call the model
-            $Model = $this->CallModel("User");
+            $Model = $this->CallModel("Person");
 
             // Initialy set message to String.Empty
             $Message = '';
 
-            // Check if user exist from parameters
-            $Rows = $Model->GetUserById([
+            // Check if Person exist from parameters
+            $Rows = $Model->GetPersonById([
                 'Id' => $Id
             ]);
             if (count($Rows) > 0)
@@ -186,7 +186,7 @@ class AdminController extends Controller {
                     'Message' => $Message,
                     'Model' => $Row
                 ];
-                $this->Render('User', $Data);
+                $this->Render('Person', $Data);
 
                 // Don't allow program to go to the next lines
                 return;
@@ -194,7 +194,7 @@ class AdminController extends Controller {
                 
         }
 
-        // If user id did not exist in database or sent as paramter to this method
+        // If Person id did not exist in database or sent as paramter to this method
         throw new NotFoundException("شناسه‌ی کاربری مورد نظر پیدا نشد");
     }
 

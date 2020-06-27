@@ -1,4 +1,4 @@
-# To disallow unauthorized users to access the method
+# To disallow unauthorized People to access the method
 
 Call the function `CheckLogin` from any controller
 

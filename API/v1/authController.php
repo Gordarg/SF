@@ -1,7 +1,7 @@
 <?php
 
 include_once '../core/AController.php';
-include_once BASEPATH . 'model/User.php';
+include_once BASEPATH . 'model/Person.php';
 include_once BASEPATH . 'core/Authentication.php';
 
 class authController extends AController{
@@ -10,7 +10,7 @@ class authController extends AController{
 	function GET(){
 		parent::GET();
 		$result = Authentication::ValidateToken(
-			parent::getRequest("Userlogin"),
+			parent::getRequest("Personlogin"),
 			parent::getRequest("Token")
 		);
 		if (!$result)
@@ -19,7 +19,7 @@ class authController extends AController{
 		parent::returnData();
 	}
 
-	// Login with username and password
+	// Login with Username and password
 	function POST(){
 		parent::POST();
 		$result = Authentication::Login(

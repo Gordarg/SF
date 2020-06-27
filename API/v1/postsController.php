@@ -57,7 +57,7 @@ class postsController extends ApiController {
             'Title' => $this->RequestBody['title'],
             'BinContent' => base64_encode(file_get_contents($this->RequestBody[0]['content']['tmp_name'][0])),
             'Body' => $this->RequestBody['body'],
-            'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
+            'PersonId' => 1,// $this->RequestBody['PersonId'], // TODO: Attention
             'Status' => $this->RequestBody['status'],
             'Language' => 'fa-IR' // $this->RequestBody['language'],
         ];
@@ -80,7 +80,7 @@ class postsController extends ApiController {
             'Title' => $this->RequestBody['title'],
             'BinContent' => $bincontent,
             'Body' => $this->RequestBody['body'],
-            'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
+            'PersonId' => 1,// $this->RequestBody['PersonId'], // TODO: Attention
             'Status' => $this->RequestBody['status'],
             'IsContentDeleted' => isset($this->RequestBody['deletecontent']),
             'Language' => 'fa-IR' // $this->RequestBody['language'],
@@ -96,7 +96,7 @@ class postsController extends ApiController {
             'MasterId' =>$this->RequestBody['masterid'],
             'Title' => $this->RequestBody['title'],
             'Body' => $this->RequestBody['body'],
-            'UserId' => 1,// $this->RequestBody['UserId'], // TODO: Attention
+            'PersonId' => 1,// $this->RequestBody['PersonId'], // TODO: Attention
             'Language' => 'fa-IR' // $this->RequestBody['language'],
         ];
 
