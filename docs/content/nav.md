@@ -4,9 +4,14 @@
 
 - درباره
     1. اسنو‌فریم‌ورک
-    1. معماری
-    1. مدیریت وبلاگ
     1. تاریخچه
+
+- Justification
+    1. Layers
+    1. Software Engineering Layers
+    1. System Administrators Layers
+    1. Business Layers
+
 - Installation
     1. Linux LAMP Server
     1. Linux File Permissions
@@ -17,6 +22,7 @@
     1. Linux Services
     1. Linux Timezone
     1. MySQL Level Activity Log
+
 - Development
     1. Models
     1. Views
