@@ -10,8 +10,8 @@ class Middleware {
      *
      * @return void
      */
-    function CallModel(string $Entity){
+    function CallModel($Entity, $UsePDO = true){
         include('Model/' . $Entity . '.php');
-        return new $Entity;
+        return new $Entity($UsePDO);
     }
 }

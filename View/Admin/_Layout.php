@@ -1,5 +1,6 @@
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><?php echo _AppName ?></a>
+    <strong class="text-light"><?php echo $Data['Title'] ?></strong>
     <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
         <a class="nav-link logout" href="<?php echo _Root . 'Authentication/Logout' ?>">خروج</a>
@@ -40,6 +41,11 @@
                 <li class="nav-item">
                 <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Posts' ?>">
                     پست‌ها
+                </a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?php echo _Root . 'Admin/CRUD/Todo' ?>">
+                    فهرست کارها
                 </a>
                 </li>
             </ul>

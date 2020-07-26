@@ -24,8 +24,8 @@ define('_UploadDirectory', 'Uploads/');
 // MySQL Server details
 define('_DatabaseServer', 'localhost');
 define('_DatabaseUsername', 'root');
-define('_DatabasePassword', '');
-define('_DatabaseName', 'SF2');
+define('_DatabasePassword', '123');
+define('_DatabaseName', 'sf');
 
 // API Result Type
 define('_APIRESULTTYPE', 'application/json');

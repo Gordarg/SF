@@ -29,7 +29,7 @@ sudo vi /etc/apache2/apache2.conf
 ```
 <DocumentRoot /home/USERNAMEHERE/snowframework>
         Options Indexes FollowSymLinks
-        AllowOverride None
+        AllowOverride All
         Require all granted
 </DocumentRoot>
 ```
@@ -42,6 +42,13 @@ sudo vi /etc/apache2/sites-available/000-default.conf
 ## Content to edit
 ```
 DocumentRoot /home/USERNAMEHERE/snowframework
+```
+
+## Enable Mod_Rewrite
+
+```
+sudo a2enmod rewrite
+sudo service apache2 restart
 ```
 
 ## Add user to group

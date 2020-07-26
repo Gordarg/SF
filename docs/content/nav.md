@@ -27,6 +27,7 @@
     1. Models
     1. Views
     1. Controllers
+    1. AdminController.php
     1. Apache Level Log
     1. Authentication
     1. Errors

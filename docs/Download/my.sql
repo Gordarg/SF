@@ -291,7 +291,7 @@ CREATE TABLE `visits` (
 --
 DROP TABLE IF EXISTS `post_contributers`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants Person`@`skip-grants host` SQL SECURITY DEFINER VIEW `post_contributers`  AS  select `P`.`MasterId` AS `MasterID`,`P`.`Id` AS `ID`,`P`.`PersonId` AS `PersonId`,`U`.`Username` AS `Username`,`P`.`Submit` AS `Submit`,`P`.`Language` AS `Language` from (`posts` `P` join `people` `U` on((`P`.`PersonId` = `U`.`Id`))) ;
+CREATE VIEW `post_contributers`  AS  select `P`.`MasterId` AS `MasterID`,`P`.`Id` AS `ID`,`P`.`PersonId` AS `PersonId`,`U`.`Username` AS `Username`,`P`.`Submit` AS `Submit`,`P`.`Language` AS `Language` from (`posts` `P` join `people` `U` on((`P`.`PersonId` = `U`.`Id`))) ;
 
 -- --------------------------------------------------------
 
@@ -300,7 +300,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants Person`@`skip-grants host` SQL S
 --
 DROP TABLE IF EXISTS `post_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`skip-grants Person`@`skip-grants host` SQL SECURITY DEFINER VIEW `post_details`  AS  select `P`.`MasterId` AS `MasterId`,`P`.`Title` AS `Title`,`P`.`Id` AS `ID`,`P`.`Submit` AS `Submit`,`P`.`PersonId` AS `PersonId`,`U`.`Username` AS `Username`,`P`.`Body` AS `Body`,`P`.`Status` AS `Status`,`P`.`Language` AS `Language`,(case when ((select `P2`.`Submit` from `posts` `P2` where ((`P2`.`IsContentDeleted` = 1) and (`P`.`MasterId` = `P2`.`MasterId`)) order by `P2`.`Submit` desc limit 1) > (select `P1`.`Submit` from `posts` `P1` where ((`P1`.`BinContent` is not null) and (`P`.`MasterId` = `P1`.`MasterId`)) order by `P1`.`Submit` desc limit 1)) then NULL else (select `P1`.`BinContent` from `posts` `P1` where ((`P1`.`BinContent` is not null) and (`P`.`IsContentDeleted` = 0) and (`P`.`MasterId` = `P1`.`MasterId`)) order by `P1`.`Submit` desc limit 1) end) AS `BinContent` from (`posts` `P` join `people` `U` on((`P`.`PersonId` = `U`.`Id`))) where (`P`.`Id` in (select max(`posts`.`Id`) from `posts` group by `posts`.`MasterId`,`posts`.`Language`) and (`P`.`IsDeleted` = '0')) ;
+CREATE VIEW `post_details`  AS  select `P`.`MasterId` AS `MasterId`,`P`.`Title` AS `Title`,`P`.`Id` AS `ID`,`P`.`Submit` AS `Submit`,`P`.`PersonId` AS `PersonId`,`U`.`Username` AS `Username`,`P`.`Body` AS `Body`,`P`.`Status` AS `Status`,`P`.`Language` AS `Language`,(case when ((select `P2`.`Submit` from `posts` `P2` where ((`P2`.`IsContentDeleted` = 1) and (`P`.`MasterId` = `P2`.`MasterId`)) order by `P2`.`Submit` desc limit 1) > (select `P1`.`Submit` from `posts` `P1` where ((`P1`.`BinContent` is not null) and (`P`.`MasterId` = `P1`.`MasterId`)) order by `P1`.`Submit` desc limit 1)) then NULL else (select `P1`.`BinContent` from `posts` `P1` where ((`P1`.`BinContent` is not null) and (`P`.`IsContentDeleted` = 0) and (`P`.`MasterId` = `P1`.`MasterId`)) order by `P1`.`Submit` desc limit 1) end) AS `BinContent` from (`posts` `P` join `people` `U` on((`P`.`PersonId` = `U`.`Id`))) where (`P`.`Id` in (select max(`posts`.`Id`) from `posts` group by `posts`.`MasterId`,`posts`.`Language`) and (`P`.`IsDeleted` = '0')) ;
 
 --
 -- Indexes for dumped tables
@@ -444,3 +444,7 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `Todos` ( `Id` BIGINT NOT NULL AUTO_INCREMENT , `Title` INT NOT NULL , `Details` INT NULL , `Submit` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`Id`)) ENGINE = InnoDB;
+ALTER TABLE `Todos` CHANGE `Title` `Title` VARCHAR(500) NOT NULL;
+ALTER TABLE `Todos` CHANGE `Details` `Details` VARCHAR(3000) NOT NULL;
