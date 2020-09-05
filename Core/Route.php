@@ -8,16 +8,41 @@ class Route {
      * @return array
      */
     static function GetPathInfo(){
-        // If does not exist index.php/something
-        if (!isset($_SERVER['PATH_INFO']))
+
+        
+        $ActualLink = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        // $ParsedUrl = parse_url($ActualLink);
+
+        // Use path info if exists
+        // index.php/value1/value2
+        if (isset($_SERVER['PATH_INFO']))
+            $PathInfo = trim(
+                $_SERVER['PATH_INFO']
+                , '/');
+        // Use query string if exists
+        // index.php?/value1/value2
+        else if (isset($_SERVER['QUERY_STRING']))
+            $PathInfo = trim(
+                $_SERVER['QUERY_STRING']
+                , '/');
+        // return null if no one exist
+        else
             return [];
+        
+        // convert to array and return
+        $Output = explode('/', $PathInfo);
 
-        // else
-        $PathInfo = trim(
-            $_SERVER['PATH_INFO']
-            , '/');
+        // Add other query strings to  the last parameter
+        if ($PathInfo == '')
+            return $Output;
 
-        return explode('/', $PathInfo);
+        $LeftOver = substr($ActualLink,
+        strpos($ActualLink, $PathInfo) + strlen($PathInfo));
+        if ($LeftOver != '' && str_replace($LeftOver, '', '/') != '')
+            array_push($Output, urldecode($LeftOver));
+
+        // return
+        return $Output;
 
         // TODO: Allow dynamic routing
 

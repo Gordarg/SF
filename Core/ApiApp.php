@@ -15,6 +15,19 @@ class ApiApp
 		// Version
 		$this->Version = $URL[1];
 		// Controller
+		if (strpos($URL[2], '?') !== false)
+		{
+			$URL[2] = substr($URL[2], 0, strpos($URL[2], '?'));
+			// As $_GET is passed as keyvalue array
+			// which is not simple editable
+			$key = array_keys($_GET)[0];
+			$value = array_values($_GET)[0];
+			unset($_GET[$key]);
+			$key = substr($key, strpos($key, '?') + 1);
+			$_GET = array_reverse($_GET);
+			$_GET[$key] = $value;
+			$_GET = array_reverse($_GET);
+		}
 		$this->Controller = $URL[2].'Controller';
 		// Call the method form class
 		$ControllerFilePath = 'API/' . $this->Version . '/' . $this->Controller.'.php';
@@ -101,12 +114,16 @@ class ApiApp
 		// Call the method if exists
 		if (!method_exists($ClassObject, $ControllerMethod))
 			$ClassObject->SendResponse(404,'Controller Method Not Found.');
-		try {
-			// Set url passed paramters
-			unset($URL[0]);
-			unset($URL[1]);
-			unset($URL[2]);
-			$Params = array_values($URL);
+			
+		// Set url passed paramters
+		unset($URL[0]);
+		unset($URL[1]);
+		unset($URL[2]);
+		$Params = array_values($URL);
+
+		// Call the function
+		if (_Debug) call_user_func_array([$ClassObject, $ControllerMethod], $Params);
+		else try {
 			// Call the method
 			call_user_func_array([$ClassObject, $ControllerMethod], $Params);
 		} catch (AuthException $exp ){ // On auth error
@@ -114,9 +131,7 @@ class ApiApp
 		} catch (NotFoundException $exp ){ // on not found error
 			$ClassObject->SendResponse(404, $exp->getMessage());
 		}
-
-
+		
 	}
-	
 }
 ?>

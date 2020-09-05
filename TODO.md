@@ -21,6 +21,7 @@ Phase 0:
 - [ ] Paginate posts in home page and management
 - [ ] Query String Overloading https://github.com/Pressz/Sariab-V2/commit/92daa86b8433f68398c6499733830607ede5982c
 - [ ] Two purpose authentication (seperate admins from database users)
+- [ ] Seperate admin controller files
 
 Phase 1: Web site features (EMails & Tickets, Form buidler, )
 
