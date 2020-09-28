@@ -1,3 +1,10 @@
+Updates:
+
+- [ ] Break admin controller with traits
+- [ ] Helpers
+- [ ] Textyy (github.com/tayyebi/textyy)
+
+
 Phase 0:
 
 - [X] Remove types from posts

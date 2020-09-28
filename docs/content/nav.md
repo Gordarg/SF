@@ -22,6 +22,7 @@
     1. Linux Services
     1. Linux Timezone
     1. MySQL Level Activity Log
+    1. Authentication
 
 - Development
     1. Models

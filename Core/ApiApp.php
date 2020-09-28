@@ -131,7 +131,9 @@ class ApiApp
 		} catch (NotFoundException $exp ){ // on not found error
 			$ClassObject->SendResponse(404, $exp->getMessage());
 		}
-		
+
+
 	}
+	
 }
 ?>

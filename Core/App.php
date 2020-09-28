@@ -79,6 +79,9 @@ class App
             $this->View = $URL[1];
             unset($URL[1]);
         }
+        // Define public variables
+        define('_Controller', $this->Controller);
+        define('_View', $this->View);
         // Get other parameters
         $this->Params = array_values($URL);
         // Call the method form class
@@ -93,20 +96,6 @@ class App
         $ClassObject->SetViewDirectory($this->DefaultViewDirectoryOfController);
         // Get the method
         $HttpMethod = $_SERVER['REQUEST_METHOD'];
-        // Get the request body
-        switch ($HttpMethod)
-        {
-                // HTTP METHOD POST
-                
-            case "POST":
-                $RequestBody = $_POST;
-            break;
-                // HTTP METHOD GET
-                
-            default:
-                $RequestBody = $_GET;
-
-        }
         // Find the function
         $ControllerMethod = $this->View . $HttpMethod;
         // Call the method if exists
@@ -240,6 +229,10 @@ class App
         catch(UnauthException $exp)
         { // on unauthorized exception
             $this->HandleError(401);
+        }
+        catch(UnauthException $exp)
+        {
+            // TODO:
         }
     }
 
