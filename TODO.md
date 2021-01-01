@@ -1,8 +1,8 @@
 Updates:
 
 - [X] Break admin controller with traits
-- [ ] Helpers
-- [ ] Textyy (github.com/tayyebi/textyy)
+- [X] Helpers
+- [X] Textyy (github.com/tayyebi/textyy)
 - [ ] Allow user to choose between texyy (markup) or simplemde (markdown)
 - [ ] CDN for files
 

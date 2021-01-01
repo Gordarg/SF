@@ -6,6 +6,33 @@ class Controller extends Middleware{
 
     protected $ViewDirectory;
 
+    /**
+     * __call
+     *
+     * Dynamic functions
+     * 
+     * Calls helpers and etc...
+     * with functions in style of
+     * call_XXXXXX
+     * 
+     * 
+     * @return void
+     */
+    function __call($func, $params) {
+        $prefix = substr($func, 0, 5);
+        if ($prefix == 'call_')
+        {
+            $func = substr($func, 5);
+            foreach (glob("Helper/*.php") as $key=>$value)
+            {
+                if ($value == 'Helper/' . $func . '.php')
+                {
+                    include('Helper/' . $func . '.php');
+                }
+            }
+        }
+    }
+
 
     /**
      * __construct

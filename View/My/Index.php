@@ -1,10 +1,10 @@
 <?php
-// throw new AuthException();
+// Payload Content Here
 ?>
+
 <!--PAYLOAD_CONTENT_END-->
 
 <?php
-
-// TODO:
-
+// Helper test
+Controller::call_Welcome();
 ?>

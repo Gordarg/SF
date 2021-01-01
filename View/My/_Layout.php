@@ -19,7 +19,7 @@
             </h6>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                    <a class="nav-link active" href="<?php echo _Root . 'Admin' ?>">
+                    <a class="nav-link active" href="<?php echo _Root . 'My' ?>">
                         داشبورد
                     </a>
                 </li>
