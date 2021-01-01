@@ -3,6 +3,7 @@ Updates:
 - [ ] Break admin controller with traits
 - [ ] Helpers
 - [ ] Textyy (github.com/tayyebi/textyy)
+- [ ] Allow user to choose between texyy (markup) or simplemde (markdown)
 
 
 Phase 0:
