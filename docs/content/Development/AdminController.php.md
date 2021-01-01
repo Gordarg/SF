@@ -22,7 +22,7 @@ function DescribeTable() {
 }
 function GetAdminPanelItems($Values = null) {
     $Query = 'SELECT
-    CONCAT(\'<a class="btn btn-sm btn-default" href="' . _Root . 'Admin/CRUD/MODELNAMEHERE/\', id , \'">\', \'Edit\', \'</a>\') as Edit,
+    CONCAT(\'<a class="btn btn-sm btn-default" href="' . _Root . 'My/CRUD/MODELNAMEHERE/\', id , \'">\', \'Edit\', \'</a>\') as Edit,
     Id
     ,Title
     ,Submit

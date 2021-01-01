@@ -222,6 +222,7 @@ class Controller extends Middleware{
      * CheckLogin
      *
      * Check the auth for Person
+     * Automatially detects where to find username and password
      * 
      * @param  mixed $Role
      *

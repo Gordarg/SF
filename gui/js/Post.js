@@ -81,7 +81,7 @@ $("form#post").on('submit', function (event) {
     // Clear form
     // $(event.target).trigger("reset");
 
-    window.location = baseurl + 'Admin/Interpreter#Posts';
+    window.location = baseurl + 'My/Interpreter#Posts';
 
 
 });

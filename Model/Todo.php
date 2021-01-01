@@ -10,7 +10,7 @@ class Todo extends Model {
     function GetAdminPanelItems($Values = null) {
 
         $Query = 'SELECT
-        CONCAT(\'<a class="btn btn-sm btn-default" href="' . _Root . 'Admin/CRUD/Todo/\', id , \'">\', \'Edit\', \'</a>\') as Edit,
+        CONCAT(\'<a class="btn btn-sm btn-default" href="' . _Root . 'My/CRUD/Todo/\', id , \'">\', \'Edit\', \'</a>\') as Edit,
         Id
         ,`Title`
         ,`Submit`

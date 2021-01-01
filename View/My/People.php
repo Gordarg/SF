@@ -19,7 +19,7 @@ foreach ($Data['Model'] as $item)
             <?php echo $item['Username'] ?>
             </td>
             <td>
-            <a class="btn btn-sm btn-primary" href="<?php echo _Root . 'Admin/Person/' . $item['Id'] ?>">تغییر کلمه‌ی عبور</a>
+            <a class="btn btn-sm btn-primary" href="<?php echo _Root . 'My/Person/' . $item['Id'] ?>">تغییر کلمه‌ی عبور</a>
             </td>
         </tr>
 <?php

@@ -24,27 +24,27 @@
                     </a>
                 </li>
                 <!-- <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Tickets' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/Interpreter#Tickets' ?>">
                     تیکت‌ها
                 </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#EMails' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/Interpreter#EMails' ?>">
                     ایمیل‌ها
                 </a>
                 </li> -->
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Post' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/Interpreter#Post' ?>">
                     پست جدید
                 </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/Interpreter#Posts' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/Interpreter#Posts' ?>">
                     پست‌ها
                 </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/CRUD/Todo' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/CRUD/Todo' ?>">
                     فهرست کارها
                 </a>
                 </li>
@@ -57,7 +57,7 @@
             </h6>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo _Root . 'Admin/People' ?>">
+                <a class="nav-link" href="<?php echo _Root . 'My/People' ?>">
                     مدیریت کاربر‌ها
                 </a>
                 </li>

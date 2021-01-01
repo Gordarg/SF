@@ -38,7 +38,7 @@ class AuthenticationController extends Controller {
             setcookie("Password", $_SERVER['PHP_AUTH_PW'], time() + (2 * 86400 * 15), "/"); // Keep cookies for next two days
             
             // Response redirect
-            $this->RedirectResponse(_Root . "Admin/Index");
+            $this->RedirectResponse(_Root . "My/Index");
         }
         // If wasn't logged in
         else {
