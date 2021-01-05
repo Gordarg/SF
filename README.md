@@ -35,6 +35,13 @@ tasksel install lamp-server
 mysql_secure_installation
 ```
 
+
+## Give apache permissions to write
+
+```
+sudo chgrp -R www-data /var/www/html
+```
+
 ## Check apache installation
 
 ```
@@ -68,6 +75,24 @@ Copy `Core/Config.Sample.php` to `Core/Config.php`;
 then edit the `Core/Config.php`.
 
 also set `baseurl` (website root) in `static/js/config.js`.
+
+
+## Authenticaition
+
+Edit **.htaccess** for default **.htpasswd** file directory.
+
+Then set the permissions to
+
+```
+chmod 644 .htaccess
+chmod 644 .htpasswd
+```
+
+To create **.htpasswd** for the first time:
+
+```
+htpasswd -c /var/www/html/Sariab-V2/.htpasswd tayyebi
+```
 
 # **How to contribute on project :**
 
