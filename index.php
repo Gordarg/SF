@@ -1,14 +1,37 @@
 <?php
+
+// Check if configuration file exists
+if (!file_exists('Core/Config.php')) {
+    // Show user-friendly error message
+    die('Configuration file not found. Please copy Core/Config.Sample.php to Core/Config.php and configure your settings.');
+}
+
 // Read configuration
 include('Core/Config.php');
 
-// CORS
-header('Access-Control-Allow-Origin: *');
+// HTTPS enforcement for production
+// Only enforce if not in debug mode and not already using HTTPS
+if (!_Debug && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off')) {
+    // Check if this is not a CLI request
+    if (php_sapi_name() !== 'cli') {
+        $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        header('HTTP/1.1 301 Moved Permanently');
+        header('Location: ' . $redirect);
+        exit();
+    }
+}
 
-// Allowed methods
-header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, HEAD, VIEW');
+// Load security headers
+include('Core/SecurityHeaders.php');
 
-// Debuf mode
+// Set security headers
+SecurityHeaders::SetSecurityHeaders();
+
+// Set CORS headers with whitelist support
+$corsOrigins = defined('_CORSOrigins') ? _CORSOrigins : [];
+SecurityHeaders::SetCORSHeaders($corsOrigins);
+
+// Debug mode
 if (_Debug)
 {
     // Report all PHP errors
@@ -16,9 +39,22 @@ if (_Debug)
     ini_set('display_startup_errors', '1');
     error_reporting(E_ALL);
 }
-else
+else {
     // Turn off all error reporting
     error_reporting(0);
+    
+    // Set custom error handler to log errors
+    set_error_handler(function($errno, $errstr, $errfile, $errline) {
+        // Only log actual errors, not notices or warnings in production
+        if ($errno === E_ERROR || $errno === E_CORE_ERROR || $errno === E_COMPILE_ERROR || $errno === E_USER_ERROR) {
+            if (class_exists('Logger')) {
+                Logger::Error("Error [$errno]: $errstr in $errfile on line $errline");
+            }
+        }
+        // Don't execute PHP internal error handler
+        return true;
+    });
+}
 
 // Exception handler
 include('Core/Exceptions.php');
@@ -35,8 +71,17 @@ include('Libs/Random.php');
 // Strings
 include('Libs/Strings.php');
 
+// Input validator
+include('Libs/Validator.php');
+
+// Logger
+include('Libs/Logger.php');
+
 // Models core
 include('Core/Model.php');
+
+// Rate limiting
+include('Core/RateLimit.php');
 
 // Middleware
 include('Core/Middleware.php');

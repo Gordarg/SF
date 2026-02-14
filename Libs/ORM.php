@@ -212,11 +212,11 @@ abstract class ORM
 		$i=0;
 		foreach($this->GetProperties() as $key => $value){
 
-			// prevenet sql injection ;)
-			// TODO: find a better way!
+			// prevent sql injection
+			// TODO: Use prepared statements instead
 			if ($value != null)
 			{
-				str_replace("'", "\'", $value);
+				$value = str_replace("'", "\'", $value);
 			}
 			if ($this->IsKnownAsHeavyOrSecret($key)
 				&& substr($key, 0, 2) == "Is")

@@ -33,18 +33,52 @@ class Model{
     {
         if ($PDO)
         {
-            $ConnectionParameters = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES latin1'); // utf8
-            self::$Connection = new PDO((string)$this,  _DatabaseUsername, _DatabasePassword, $ConnectionParameters);
-            if (_Debug)
-                self::$Connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Use utf8mb4 for full Unicode support (including emojis)
+            $ConnectionParameters = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4');
+            
+            try {
+                self::$Connection = new PDO((string)$this,  _DatabaseUsername, _DatabasePassword, $ConnectionParameters);
+                
+                if (_Debug)
+                    self::$Connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                else
+                    self::$Connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+            } catch (PDOException $e) {
+                // Log error securely
+                if (class_exists('Logger')) {
+                    Logger::Critical('Database connection failed: ' . $e->getMessage());
+                }
+                
+                // Show generic error to user (don't expose details in production)
+                if (_Debug) {
+                    throw $e;
+                } else {
+                    throw new Exception('Database connection failed. Please contact administrator.');
+                }
+            }
         }
         else
         {
-            self::$Connection = @new mysqli(_DatabaseServer
+            self::$Connection = new mysqli(_DatabaseServer
             , _DatabaseUsername
             , _DatabasePassword
             , _DatabaseName);
-            mysqli_set_charset(self::$Connection,"latin1"); //utf8
+            
+            // Check for connection errors
+            if (self::$Connection->connect_error) {
+                if (class_exists('Logger')) {
+                    Logger::Critical('MySQL connection failed: ' . self::$Connection->connect_error);
+                }
+                
+                if (_Debug) {
+                    throw new Exception('MySQL connection failed: ' . self::$Connection->connect_error);
+                } else {
+                    throw new Exception('Database connection failed. Please contact administrator.');
+                }
+            }
+            
+            // Use utf8mb4 for full Unicode support
+            mysqli_set_charset(self::$Connection, "utf8mb4");
         }
     }
 
