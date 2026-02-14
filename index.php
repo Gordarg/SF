@@ -44,9 +44,11 @@ else {
     error_reporting(0);
     
     // Set custom error handler to log errors
+    // Note: This only catches recoverable errors (E_USER_ERROR, E_WARNING, etc.)
+    // Fatal errors like E_ERROR, E_CORE_ERROR cannot be caught by set_error_handler
     set_error_handler(function($errno, $errstr, $errfile, $errline) {
-        // Only log actual errors, not notices or warnings in production
-        if ($errno === E_ERROR || $errno === E_CORE_ERROR || $errno === E_COMPILE_ERROR || $errno === E_USER_ERROR) {
+        // Only log serious errors in production
+        if ($errno === E_USER_ERROR || $errno === E_WARNING || $errno === E_USER_WARNING) {
             if (class_exists('Logger')) {
                 Logger::Error("Error [$errno]: $errstr in $errfile on line $errline");
             }

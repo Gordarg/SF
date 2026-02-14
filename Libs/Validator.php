@@ -168,14 +168,19 @@ class Validator {
     /**
      * ValidateCSRFToken
      *
-     * Validates CSRF token (placeholder for CSRF implementation)
+     * Validates CSRF token using the CSRF class
      * 
      * @param string $token Token to validate
      * @return bool True if valid, false otherwise
      */
     public static function ValidateCSRFToken($token)
     {
-        // This will be implemented when CSRF protection is added
+        // Delegate to CSRF class for validation
+        if (class_exists('CSRF')) {
+            return CSRF::ValidateToken($token);
+        }
+        
+        // Fallback if CSRF class not loaded
         if (!isset($_SESSION['csrf_token'])) {
             return false;
         }

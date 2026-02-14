@@ -14,7 +14,7 @@ define('_AppName', 'SF2');
 define('_Root', getenv('SF_ROOT_URL') ?: 'https://localhost/SF/');
 
 // Debug mode - MUST be false in production
-define('_Debug', getenv('SF_DEBUG') === 'true' ? true : false);
+define('_Debug', getenv('SF_DEBUG') === 'true');
 
 // To disable statistics, turn off the flag
 define('_Statistics', false);

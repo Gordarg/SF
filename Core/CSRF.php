@@ -108,9 +108,9 @@ class CSRF {
         $token = null;
         if (isset($_POST['csrf_token'])) {
             $token = $_POST['csrf_token'];
-        } else if (isset($_GET['csrf_token'])) {
+        } elseif (isset($_GET['csrf_token'])) {
             $token = $_GET['csrf_token'];
-        } else if (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+        } elseif (isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
             // Support for AJAX requests
             $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
         }

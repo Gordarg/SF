@@ -56,9 +56,8 @@ class SecurityHeaders {
         // If no whitelist is provided, use wildcard (not recommended for production)
         if (empty($AllowedOrigins)) {
             header('Access-Control-Allow-Origin: *');
-        } 
-        // Check if origin is in whitelist
-        else if (in_array($origin, $AllowedOrigins)) {
+        } elseif (in_array($origin, $AllowedOrigins)) {
+            // Check if origin is in whitelist
             header('Access-Control-Allow-Origin: ' . $origin);
             header('Access-Control-Allow-Credentials: true');
         }
