@@ -15,7 +15,8 @@ function ready(fn) {
 }
 
 // Element selection (similar to jQuery $())
-// Returns an array for consistency
+// Returns an array for consistency - use $1() for single elements
+// Note: Uses $ naming for jQuery migration convenience
 function $(selector) {
     if (typeof selector === 'string') {
         return Array.from(document.querySelectorAll(selector));
@@ -23,7 +24,7 @@ function $(selector) {
     return Array.isArray(selector) ? selector : [selector];
 }
 
-// Single element selection
+// Single element selection (returns first match or null)
 function $1(selector) {
     if (typeof selector === 'string') {
         return document.querySelector(selector);

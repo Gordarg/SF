@@ -117,10 +117,8 @@ class CSRF
         // Validate token
         if (!$token || !self::validateToken($token)) {
             // Log security event
-            if (class_exists('Logger')) {
-                Logger::SecurityEvent('Invalid CSRF token in request');
-            }
-            throw new Exception('Invalid or missing CSRF token. Please refresh the page and try again.');
+            Logger::securityEvent('Invalid CSRF token in request');
+            throw new \Exception('Invalid or missing CSRF token. Please refresh the page and try again.');
         }
         
         return true;

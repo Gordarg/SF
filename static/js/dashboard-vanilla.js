@@ -116,6 +116,19 @@ function parseFragment() {
 
 // Set view function
 function setgui(name, params = null) {
+    // Whitelist of allowed view names for security
+    const allowedViews = [
+        'dashboard', 'crud', 'people', 'person', 'login', 
+        'posts', 'post', 'files', 'settings', 'profile'
+        // Add more allowed views as needed
+    ];
+    
+    // Validate view name
+    if (!allowedViews.includes(name)) {
+        console.error('Invalid view name:', name);
+        return;
+    }
+    
     // Set window title
     document.title = name;
     simplemde = null;
@@ -153,8 +166,8 @@ function setgui(name, params = null) {
             scriptElement.textContent = script;
             document.body.appendChild(scriptElement);
             
-            // Call constructor function if it exists
-            if (typeof window[name] === 'function') {
+            // Call constructor function if it exists and is whitelisted
+            if (typeof window[name] === 'function' && allowedViews.includes(name)) {
                 window[name](params);
             }
             

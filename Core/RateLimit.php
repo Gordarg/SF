@@ -131,7 +131,9 @@ class RateLimit
         // Check if max attempts exceeded
         if ($attempts['count'] >= $this->maxAttempts) {
             $remainingTime = $this->lockoutTime - (time() - $attempts['timestamp']);
-            throw new \Exception("Too many failed login attempts. Please try again in " . ceil($remainingTime / 60) . " minutes.");
+            $minutes = ceil($remainingTime / 60);
+            $minuteText = $minutes === 1 ? 'minute' : 'minutes';
+            throw new \Exception("Too many failed login attempts. Please try again in {$minutes} {$minuteText}.");
         }
         
         return true;
