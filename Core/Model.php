@@ -86,7 +86,7 @@ class Model{
     /**
      * DoSelect
      *
-     * Runs a select query
+     * Runs a select query with optional query logging
      * 
      * @param  mixed $Query
      * @param  mixed $Values
@@ -96,6 +96,9 @@ class Model{
      */
     function DoSelect($Query, $Values = [], $FetchStyle = PDO::FETCH_ASSOC)
     {
+        // Log query start time if debug mode enabled
+        $startTime = _Debug ? microtime(true) : 0;
+        
         $LiveConnection = self::$Connection->prepare($Query);
         foreach ($Values as $Key => $Value) {
             if (gettype($Value) == "integer" || gettype($Value) == "boolean") // Recommended for bit(1) values
@@ -105,6 +108,13 @@ class Model{
         }
         $LiveConnection->execute();
         $Result = $LiveConnection->fetchAll($FetchStyle);
+        
+        // Log query if debug mode enabled
+        if (_Debug && class_exists('Logger')) {
+            $executionTime = microtime(true) - $startTime;
+            Logger::QueryLog($Query, $executionTime);
+        }
+        
         return $Result;
     }
 
@@ -112,7 +122,7 @@ class Model{
     /**
      * DoQuery
      *
-     * Runs a executing query
+     * Runs an executing query with optional query logging
      * 
      * @param  mixed $Query
      * @param  mixed $Values
@@ -121,6 +131,9 @@ class Model{
      */
     function DoQuery($Query, $Values = [])
     {
+        // Log query start time if debug mode enabled
+        $startTime = _Debug ? microtime(true) : 0;
+        
         $LiveConnection = self::$Connection->prepare($Query);
         foreach ($Values as $Key => $Value) {
             if (gettype($Value) == "integer" || gettype($Value) == "boolean") // Recommended for bit(1) values
@@ -128,6 +141,15 @@ class Model{
             else
                 $LiveConnection->bindValue($Key, $Value);
         }
-        return $LiveConnection->execute();
+        
+        $result = $LiveConnection->execute();
+        
+        // Log query if debug mode enabled
+        if (_Debug && class_exists('Logger')) {
+            $executionTime = microtime(true) - $startTime;
+            Logger::QueryLog($Query, $executionTime);
+        }
+        
+        return $result;
     }
 }

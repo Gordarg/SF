@@ -28,7 +28,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <h1 class="display-1"><?php echo $Data['Model']['Title'] ?></h1>
+          <h1 class="display-1"><?php echo htmlspecialchars($Data['Model']['Title'], ENT_QUOTES, 'UTF-8') ?></h1>
           <small class="text-muted subheading">
           <?php
             $Year = $Data['Model']['Year'];
@@ -49,10 +49,10 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
       <span class="text-muted">
-      <?php echo $Data['Model']['Username'] ?>
+      <?php echo htmlspecialchars($Data['Model']['Username'], ENT_QUOTES, 'UTF-8') ?>
       </span>
       <p>
-      <?php echo $Data['Model']['Body'] ?>
+      <?php echo htmlspecialchars($Data['Model']['Body'], ENT_QUOTES, 'UTF-8') ?>
       </p>
     </div>
   </div>
