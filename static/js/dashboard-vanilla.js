@@ -44,43 +44,44 @@ function call_persiandatepicker() {
     }
 
     const dateInputs = document.querySelectorAll("input[type=date]");
-    dateInputs.forEach(input => {
-        input.setAttribute('id', 'persianDate');
+    dateInputs.forEach((input, index) => {
+        // Use unique ID for each date input
+        const uniqueId = 'persianDate_' + index;
+        input.setAttribute('id', uniqueId);
         input.setAttribute('type', 'text');
+        
+        if (typeof input.persianDatepicker === 'function') {
+            input.persianDatepicker({
+                months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+                dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
+                shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
+                showGregorianDate: true,
+                persianNumbers: true,
+                formatDate: "YYYY/MM/DD",
+                selectedBefore: false,
+                selectedDate: null,
+                startDate: null,
+                endDate: null,
+                prevArrow: '\u25c4',
+                nextArrow: '\u25ba',
+                theme: 'default',
+                alwaysShow: false,
+                selectableYears: null,
+                selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                cellWidth: 40,
+                cellHeight: 30,
+                fontSize: 15,
+                isRTL: false,
+                calendarPosition: {
+                    x: 0,
+                    y: 0,
+                },
+                onShow: function () { },
+                onHide: function () { },
+                onSelect: function () { }
+            });
+        }
     });
-
-    const persianDateInput = document.getElementById('persianDate');
-    if (persianDateInput && typeof persianDateInput.persianDatepicker === 'function') {
-        persianDateInput.persianDatepicker({
-            months: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
-            dowTitle: ["شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنج شنبه", "جمعه"],
-            shortDowTitle: ["ش", "ی", "د", "س", "چ", "پ", "ج"],
-            showGregorianDate: true,
-            persianNumbers: true,
-            formatDate: "YYYY/MM/DD",
-            selectedBefore: false,
-            selectedDate: null,
-            startDate: null,
-            endDate: null,
-            prevArrow: '\u25c4',
-            nextArrow: '\u25ba',
-            theme: 'default',
-            alwaysShow: false,
-            selectableYears: null,
-            selectableMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            cellWidth: 40,
-            cellHeight: 30,
-            fontSize: 15,
-            isRTL: false,
-            calendarPosition: {
-                x: 0,
-                y: 0,
-            },
-            onShow: function () { },
-            onHide: function () { },
-            onSelect: function () { }
-        });
-    }
 }
 
 // Call dropdown list

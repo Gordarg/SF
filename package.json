@@ -1,5 +1,5 @@
 {
-  "name": "@gordarg/sf",
+  "name": "@gordarg/snowframework",
   "version": "2.0.0",
   "description": "SF2 - A minimal, secure, headless PHP framework for API development",
   "main": "index.php",

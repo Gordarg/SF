@@ -44,7 +44,7 @@ class CSRF
      * 
      * @return string CSRF token
      */
-    public static function getToken()
+    public static function getToken(): string
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
@@ -70,7 +70,7 @@ class CSRF
      * @param string $token Token to validate
      * @return bool True if valid, false otherwise
      */
-    public static function validateToken($token)
+    public static function validateToken(string $token): bool
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
@@ -101,7 +101,7 @@ class CSRF
      * @throws Exception If token is invalid or missing
      * @return bool True if valid
      */
-    public static function validateRequest()
+    public static function validateRequest(): bool
     {
         // Get token from request
         $token = null;
@@ -133,7 +133,7 @@ class CSRF
      * 
      * @return string HTML input field
      */
-    public static function getTokenField()
+    public static function getTokenField(): string
     {
         $token = self::getToken();
         return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
@@ -146,7 +146,7 @@ class CSRF
      * 
      * @return string HTML meta tag
      */
-    public static function getTokenMeta()
+    public static function getTokenMeta(): string
     {
         $token = self::getToken();
         return '<meta name="csrf-token" content="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';

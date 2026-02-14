@@ -15,10 +15,18 @@ function ready(fn) {
 }
 
 // Element selection (similar to jQuery $())
+// Returns an array for consistency
 function $(selector) {
     if (typeof selector === 'string') {
-        const elements = document.querySelectorAll(selector);
-        return elements.length === 1 ? elements[0] : Array.from(elements);
+        return Array.from(document.querySelectorAll(selector));
+    }
+    return Array.isArray(selector) ? selector : [selector];
+}
+
+// Single element selection
+function $1(selector) {
+    if (typeof selector === 'string') {
+        return document.querySelector(selector);
     }
     return selector;
 }
