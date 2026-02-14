@@ -1,25 +1,28 @@
 <?php
 
+namespace SF\Libs;
+
+use SF\Core\CSRF;
+
 /**
  * Simple Logger
  * 
  * Provides basic logging functionality for security events and errors
  * Uses file-based logging with no external dependencies
  */
-
-class Logger {
-
-    private static $logDirectory = 'Logs/';
-    private static $defaultLogFile = 'app.log';
+class Logger
+{
+    private static string $logDirectory = 'Logs/';
+    private static string $defaultLogFile = 'app.log';
 
     /**
-     * EnsureLogDirectory
+     * ensureLogDirectory
      *
      * Ensures the log directory exists
      * 
      * @return bool True if directory exists or was created
      */
-    private static function EnsureLogDirectory()
+    private static function ensureLogDirectory()
     {
         if (!file_exists(self::$logDirectory)) {
             return mkdir(self::$logDirectory, 0755, true);
@@ -28,7 +31,7 @@ class Logger {
     }
 
     /**
-     * WriteLog
+     * writeLog
      *
      * Writes a log entry to the specified log file
      * 
@@ -37,9 +40,9 @@ class Logger {
      * @param string $logFile Log file name
      * @return bool True if successful
      */
-    private static function WriteLog($message, $level, $logFile)
+    private static function writeLog($message, $level, $logFile)
     {
-        if (!self::EnsureLogDirectory()) {
+        if (!self::ensureLogDirectory()) {
             return false;
         }
 
@@ -54,7 +57,7 @@ class Logger {
     }
 
     /**
-     * Info
+     * info
      *
      * Logs an informational message
      * 
@@ -62,14 +65,14 @@ class Logger {
      * @param string $logFile Log file name
      * @return bool True if successful
      */
-    public static function Info($message, $logFile = null)
+    public static function info($message, $logFile = null)
     {
         $logFile = $logFile ?: self::$defaultLogFile;
-        return self::WriteLog($message, 'INFO', $logFile);
+        return self::writeLog($message, 'INFO', $logFile);
     }
 
     /**
-     * Warning
+     * warning
      *
      * Logs a warning message
      * 
@@ -77,14 +80,14 @@ class Logger {
      * @param string $logFile Log file name
      * @return bool True if successful
      */
-    public static function Warning($message, $logFile = null)
+    public static function warning($message, $logFile = null)
     {
         $logFile = $logFile ?: self::$defaultLogFile;
-        return self::WriteLog($message, 'WARNING', $logFile);
+        return self::writeLog($message, 'WARNING', $logFile);
     }
 
     /**
-     * Error
+     * error
      *
      * Logs an error message
      * 
@@ -92,14 +95,14 @@ class Logger {
      * @param string $logFile Log file name
      * @return bool True if successful
      */
-    public static function Error($message, $logFile = null)
+    public static function error($message, $logFile = null)
     {
         $logFile = $logFile ?: self::$defaultLogFile;
-        return self::WriteLog($message, 'ERROR', $logFile);
+        return self::writeLog($message, 'ERROR', $logFile);
     }
 
     /**
-     * Critical
+     * critical
      *
      * Logs a critical error message
      * 
@@ -107,14 +110,14 @@ class Logger {
      * @param string $logFile Log file name
      * @return bool True if successful
      */
-    public static function Critical($message, $logFile = null)
+    public static function critical($message, $logFile = null)
     {
         $logFile = $logFile ?: self::$defaultLogFile;
-        return self::WriteLog($message, 'CRITICAL', $logFile);
+        return self::writeLog($message, 'CRITICAL', $logFile);
     }
 
     /**
-     * AuthAttempt
+     * authAttempt
      *
      * Logs an authentication attempt
      * 
@@ -122,28 +125,28 @@ class Logger {
      * @param bool $success Whether login was successful
      * @return bool True if successful
      */
-    public static function AuthAttempt($username, $success)
+    public static function authAttempt($username, $success)
     {
         $status = $success ? 'SUCCESS' : 'FAILED';
         $message = "Authentication attempt for user '$username': $status";
-        return self::WriteLog($message, 'INFO', 'auth.log');
+        return self::writeLog($message, 'INFO', 'auth.log');
     }
 
     /**
-     * SecurityEvent
+     * securityEvent
      *
      * Logs a security-related event
      * 
      * @param string $event Event description
      * @return bool True if successful
      */
-    public static function SecurityEvent($event)
+    public static function securityEvent($event)
     {
-        return self::WriteLog($event, 'WARNING', 'security.log');
+        return self::writeLog($event, 'WARNING', 'security.log');
     }
 
     /**
-     * QueryLog
+     * queryLog
      *
      * Logs a database query (only when debug mode is enabled)
      * 
@@ -151,7 +154,7 @@ class Logger {
      * @param float $executionTime Execution time in seconds
      * @return bool True if successful
      */
-    public static function QueryLog($query, $executionTime = 0)
+    public static function queryLog($query, $executionTime = 0)
     {
         // Only log queries in debug mode
         if (!defined('_Debug') || !_Debug) {
@@ -159,6 +162,6 @@ class Logger {
         }
 
         $message = "Query: $query | Execution time: " . number_format($executionTime, 4) . "s";
-        return self::WriteLog($message, 'DEBUG', 'queries.log');
+        return self::writeLog($message, 'DEBUG', 'queries.log');
     }
 }

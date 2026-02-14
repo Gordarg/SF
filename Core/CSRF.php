@@ -1,22 +1,21 @@
 <?php
 
+namespace SF\Core;
+
 /**
  * CSRF Protection
  * 
  * Simple session-based CSRF token generation and validation
  * Protects against Cross-Site Request Forgery attacks
  */
-
-class CSRF {
-
+class CSRF
+{
     /**
-     * GenerateToken
-     *
      * Generates a new CSRF token and stores it in session
      * 
      * @return string CSRF token
      */
-    public static function GenerateToken()
+    public static function generateToken(): string
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
@@ -39,13 +38,13 @@ class CSRF {
     }
 
     /**
-     * GetToken
+     * getToken
      *
      * Gets the current CSRF token, generating one if it doesn't exist
      * 
      * @return string CSRF token
      */
-    public static function GetToken()
+    public static function getToken()
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
@@ -60,18 +59,18 @@ class CSRF {
         }
         
         // Generate new token if doesn't exist or expired
-        return self::GenerateToken();
+        return self::generateToken();
     }
 
     /**
-     * ValidateToken
+     * validateToken
      *
      * Validates a CSRF token against the session token
      * 
      * @param string $token Token to validate
      * @return bool True if valid, false otherwise
      */
-    public static function ValidateToken($token)
+    public static function validateToken($token)
     {
         // Start session if not already started
         if (session_status() === PHP_SESSION_NONE) {
@@ -94,7 +93,7 @@ class CSRF {
     }
 
     /**
-     * ValidateRequest
+     * validateRequest
      *
      * Validates CSRF token from POST/GET request
      * Throws exception if invalid
@@ -102,7 +101,7 @@ class CSRF {
      * @throws Exception If token is invalid or missing
      * @return bool True if valid
      */
-    public static function ValidateRequest()
+    public static function validateRequest()
     {
         // Get token from request
         $token = null;
@@ -116,7 +115,7 @@ class CSRF {
         }
         
         // Validate token
-        if (!$token || !self::ValidateToken($token)) {
+        if (!$token || !self::validateToken($token)) {
             // Log security event
             if (class_exists('Logger')) {
                 Logger::SecurityEvent('Invalid CSRF token in request');
@@ -128,28 +127,28 @@ class CSRF {
     }
 
     /**
-     * GetTokenField
+     * getTokenField
      *
      * Returns HTML hidden input field with CSRF token
      * 
      * @return string HTML input field
      */
-    public static function GetTokenField()
+    public static function getTokenField()
     {
-        $token = self::GetToken();
+        $token = self::getToken();
         return '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
     }
 
     /**
-     * GetTokenMeta
+     * getTokenMeta
      *
      * Returns HTML meta tag with CSRF token (for AJAX requests)
      * 
      * @return string HTML meta tag
      */
-    public static function GetTokenMeta()
+    public static function getTokenMeta()
     {
-        $token = self::GetToken();
+        $token = self::getToken();
         return '<meta name="csrf-token" content="' . htmlspecialchars($token, ENT_QUOTES, 'UTF-8') . '">';
     }
 }

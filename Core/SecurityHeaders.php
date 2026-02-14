@@ -1,22 +1,21 @@
 <?php
 
+namespace SF\Core;
+
 /**
  * Security Headers
  * 
  * Centralizes security header management for the application
  * Implements defense-in-depth security measures
  */
-
-class SecurityHeaders {
-
+class SecurityHeaders
+{
     /**
-     * SetSecurityHeaders
-     *
      * Sets all security-related HTTP headers
      * 
      * @return void
      */
-    public static function SetSecurityHeaders()
+    public static function setSecurityHeaders(): void
     {
         // Content Security Policy - Restricts resource loading
         // This is a permissive policy that allows the app to function
@@ -41,22 +40,20 @@ class SecurityHeaders {
     }
 
     /**
-     * SetCORSHeaders
-     *
      * Sets CORS headers based on whitelist configuration
      * 
-     * @param array $AllowedOrigins Array of allowed origins
+     * @param array $allowedOrigins Array of allowed origins
      * @return void
      */
-    public static function SetCORSHeaders($AllowedOrigins = [])
+    public static function setCorsHeaders(array $allowedOrigins = []): void
     {
         // Get the origin of the request
-        $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
         
         // If no whitelist is provided, use wildcard (not recommended for production)
-        if (empty($AllowedOrigins)) {
+        if (empty($allowedOrigins)) {
             header('Access-Control-Allow-Origin: *');
-        } elseif (in_array($origin, $AllowedOrigins)) {
+        } elseif (in_array($origin, $allowedOrigins, true)) {
             // Check if origin is in whitelist
             header('Access-Control-Allow-Origin: ' . $origin);
             header('Access-Control-Allow-Credentials: true');

@@ -1,22 +1,21 @@
 <?php
 
+namespace SF\Core;
+
 /**
  * Rate Limiting
  * 
  * Simple IP-based rate limiting for authentication endpoints
  * Protects against brute force attacks
  */
-
-class RateLimit {
-
-    private $maxAttempts = 5;
-    private $lockoutTime = 900; // 15 minutes in seconds
-    private $useAPCu = false;
-    private $storageFile = '';
+class RateLimit
+{
+    private int $maxAttempts = 5;
+    private int $lockoutTime = 900; // 15 minutes in seconds
+    private bool $useAPCu = false;
+    private string $storageFile = '';
 
     /**
-     * __construct
-     *
      * Initialize rate limiter with appropriate storage backend
      * 
      * @return void
@@ -33,13 +32,11 @@ class RateLimit {
     }
 
     /**
-     * GetClientIdentifier
-     *
      * Gets a unique identifier for the client
      * 
      * @return string Client IP address
      */
-    private function GetClientIdentifier()
+    private function getClientIdentifier(): string
     {
         // Get real IP address (consider proxy headers)
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -54,14 +51,12 @@ class RateLimit {
     }
 
     /**
-     * GetAttempts
-     *
      * Gets the number of failed attempts for a client
      * 
      * @param string $identifier Client identifier
      * @return array Attempt data
      */
-    private function GetAttempts($identifier)
+    private function getAttempts(string $identifier): array
     {
         $key = 'rate_limit_' . md5($identifier);
         
@@ -81,15 +76,13 @@ class RateLimit {
     }
 
     /**
-     * SetAttempts
-     *
      * Sets the number of failed attempts for a client
      * 
      * @param string $identifier Client identifier
      * @param array $attemptData Attempt data
      * @return void
      */
-    private function SetAttempts($identifier, $attemptData)
+    private function setAttempts(string $identifier, array $attemptData): void
     {
         $key = 'rate_limit_' . md5($identifier);
         
@@ -118,44 +111,41 @@ class RateLimit {
     }
 
     /**
-     * CheckRateLimit
-     *
      * Checks if the client is rate limited
      * 
      * @return bool True if allowed, false if rate limited
+     * @throws \Exception If rate limited
      */
-    public function CheckRateLimit()
+    public function checkRateLimit(): bool
     {
-        $identifier = $this->GetClientIdentifier();
-        $attempts = $this->GetAttempts($identifier);
+        $identifier = $this->getClientIdentifier();
+        $attempts = $this->getAttempts($identifier);
         
         // If lockout time has passed, reset attempts
         if ((time() - $attempts['timestamp']) > $this->lockoutTime) {
             $attempts = ['count' => 0, 'timestamp' => time()];
-            $this->SetAttempts($identifier, $attempts);
+            $this->setAttempts($identifier, $attempts);
             return true;
         }
         
         // Check if max attempts exceeded
         if ($attempts['count'] >= $this->maxAttempts) {
             $remainingTime = $this->lockoutTime - (time() - $attempts['timestamp']);
-            throw new Exception("Too many failed login attempts. Please try again in " . ceil($remainingTime / 60) . " minutes.");
+            throw new \Exception("Too many failed login attempts. Please try again in " . ceil($remainingTime / 60) . " minutes.");
         }
         
         return true;
     }
 
     /**
-     * RecordFailedAttempt
-     *
      * Records a failed login attempt
      * 
      * @return void
      */
-    public function RecordFailedAttempt()
+    public function recordFailedAttempt(): void
     {
-        $identifier = $this->GetClientIdentifier();
-        $attempts = $this->GetAttempts($identifier);
+        $identifier = $this->getClientIdentifier();
+        $attempts = $this->getAttempts($identifier);
         
         // If this is a new attempt window, reset
         if ((time() - $attempts['timestamp']) > $this->lockoutTime) {
@@ -164,19 +154,17 @@ class RateLimit {
             $attempts['count']++;
         }
         
-        $this->SetAttempts($identifier, $attempts);
+        $this->setAttempts($identifier, $attempts);
     }
 
     /**
-     * ResetAttempts
-     *
      * Resets failed attempts on successful login
      * 
      * @return void
      */
-    public function ResetAttempts()
+    public function resetAttempts(): void
     {
-        $identifier = $this->GetClientIdentifier();
-        $this->SetAttempts($identifier, ['count' => 0, 'timestamp' => time()]);
+        $identifier = $this->getClientIdentifier();
+        $this->setAttempts($identifier, ['count' => 0, 'timestamp' => time()]);
     }
 }

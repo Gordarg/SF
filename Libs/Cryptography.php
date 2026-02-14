@@ -1,21 +1,24 @@
 <?php
 
-/**
- * This class handles functionality around cryptography, hashing, encryption, and etc...
- */
+namespace SF\Libs;
 
-class Cryptography {
-    const SALT = 'MyVoiceIsMyPassport';
+/**
+ * Cryptography utility class
+ * 
+ * Provides encryption and hashing functions
+ */
+class Cryptography
+{
+    private const SALT = 'MyVoiceIsMyPassport';
+    
     /**
-     * Encrypt
-     *
      * Encrypts the input
      * 
-     * @return String
+     * @param string $input Input to encrypt
+     * @return string Encrypted hash
      */
-    public static function Encrypt($input) {
+    public static function encrypt(string $input): string
+    {
         return hash('sha512', self::SALT . $input);
     }
 }
-
-?>

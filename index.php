@@ -1,5 +1,15 @@
 <?php
 
+// Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Import classes
+use SF\Core\SecurityHeaders;
+use SF\Core\RateLimit;
+use SF\Core\CSRF;
+use SF\Libs\Validator;
+use SF\Libs\Logger;
+
 // Check if configuration file exists
 if (!file_exists('Core/Config.php')) {
     // Show user-friendly error message
@@ -21,15 +31,12 @@ if (!_Debug && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off')) {
     }
 }
 
-// Load security headers
-include('Core/SecurityHeaders.php');
-
 // Set security headers
-SecurityHeaders::SetSecurityHeaders();
+SecurityHeaders::setSecurityHeaders();
 
 // Set CORS headers with whitelist support
 $corsOrigins = defined('_CORSOrigins') ? _CORSOrigins : [];
-SecurityHeaders::SetCORSHeaders($corsOrigins);
+SecurityHeaders::setCorsHeaders($corsOrigins);
 
 // Debug mode
 if (_Debug)
@@ -49,9 +56,7 @@ else {
     set_error_handler(function($errno, $errstr, $errfile, $errline) {
         // Only log serious errors in production
         if ($errno === E_USER_ERROR || $errno === E_WARNING || $errno === E_USER_WARNING) {
-            if (class_exists('Logger')) {
-                Logger::Error("Error [$errno]: $errstr in $errfile on line $errline");
-            }
+            Logger::error("Error [$errno]: $errstr in $errfile on line $errline");
         }
         // Don't execute PHP internal error handler
         return true;
@@ -60,33 +65,6 @@ else {
 
 // Exception handler
 include('Core/Exceptions.php');
-
-// Cryptography
-include('Libs/Cryptography.php');
-
-// Cryptography
-include('Libs/APR1.php');
-
-// Random
-include('Libs/Random.php');
-
-// Strings
-include('Libs/Strings.php');
-
-// Input validator
-include('Libs/Validator.php');
-
-// Logger
-include('Libs/Logger.php');
-
-// Models core
-include('Core/Model.php');
-
-// Rate limiting
-include('Core/RateLimit.php');
-
-// Middleware
-include('Core/Middleware.php');
 
 // Jalali Date
 include('Libs/jdf.php');
