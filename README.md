@@ -1,4 +1,4 @@
-# SnowFramework
+# SnowFramework v2.0
 ===
 
 ![Tag](https://img.shields.io/github/tag-date/Gordarg/SnowFramework.svg)
@@ -18,21 +18,40 @@
 
 Director: Mohammad R. Tayyebi <smile@tyyi.net>
 
+## 🚀 What's New in v2.0
+
+**Major modernization update with PSR-4 autoloading and vanilla JavaScript!**
+
+- ✅ **PSR-4 Autoloading** - Composer-based class loading
+- ✅ **Namespaced Classes** - Modern PHP structure (`SF\Core`, `SF\Libs`)
+- ✅ **Type Hints** - PHP 7.4+ type safety
+- ✅ **camelCase Methods** - PSR standard naming
+- ✅ **Vanilla JavaScript** - jQuery removed, modern ES6+
+- ✅ **Production Security** - Rate limiting, CSRF, secure sessions
+
+📖 **See [MODERNIZATION.md](MODERNIZATION.md) for migration guide**
+
 ## 🔒 Security Notice
 
-**IMPORTANT**: This framework has been hardened for production use. Please read [SECURITY.md](SECURITY.md) for complete security documentation and deployment guidelines.
+**IMPORTANT**: This framework is production-ready with enterprise-level security. Please read [SECURITY.md](SECURITY.md) for complete security documentation and deployment guidelines.
 
-## Overview
+SF2 is a minimal, modern PHP framework designed for rapid API development with a focus on simplicity, security, and standards compliance. It features:
 
-SF2 is a minimal, headless PHP framework designed for rapid API development with a focus on simplicity and security. It features:
-
-- **Zero build tools** - No webpack, no transpilers, just PHP
+- **PSR-4 Autoloading** - Composer-managed dependencies
+- **Modern PHP** - Namespaces, type hints, PHP 7.4+ features
+- **Vanilla JavaScript** - No jQuery dependency, modern ES6+
 - **Headless architecture** - Perfect for API-first applications
-- **Production-ready security** - Rate limiting, CSRF protection, secure sessions, and more
-- **Minimal dependencies** - No composer, no heavy frameworks
+- **Production-ready security** - Rate limiting, CSRF protection, secure sessions
 - **Simple routing** - Hash-based SPA routing with lazy-loaded JavaScript
 
 # Installation & Setup
+
+## Requirements
+
+- **PHP 7.4+** (PHP 8.0+ recommended)
+- **Composer** (for autoloading)
+- **MySQL 5.7+** or **MariaDB 10.2+**
+- **Apache** with mod_rewrite
 
 ## 1. Install Apache-MySQL-PHP
 
@@ -41,20 +60,42 @@ apt install tasksel
 tasksel install lamp-server
 ```
 
-## 2. Configure MySQL
+## 2. Install Composer
+
+If you don't have Composer installed:
+
+```bash
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+```
+
+## 3. Clone Repository
+
+```bash
+cd /var/www/html
+git clone https://github.com/Gordarg/SF.git
+cd SF
+```
+
+## 4. Install Dependencies
+
+```bash
+# Install PHP dependencies and generate autoloader
+composer install
+```
 
 ```bash
 mysql_secure_installation
 ```
 
-## 3. Give Apache Permissions
+## 5. Configure MySQL
 
 ```bash
 sudo chgrp -R www-data /var/www/html
 sudo chmod -R 755 /var/www/html
 ```
 
-## 4. Check Apache Installation
+## 6. Give Apache Permissions
 
 ```bash
 cd /var/www/html
@@ -63,15 +104,15 @@ wget http://localhost/info.php
 rm info.php  # Remove after testing
 ```
 
-## 5. Check PHP Version
-
-**Minimum requirement: PHP 7.0+** (PHP 7.4+ recommended)
+## 7. Check Apache Installation
 
 ```bash
 php --version
 ```
 
-## 6. Create Database
+## 8. Check PHP Version
+
+**Minimum requirement: PHP 7.4+** (PHP 8.0+ recommended)
 
 ```sql
 mysql -u root -p
@@ -80,7 +121,7 @@ CREATE DATABASE SF2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 **Important**: Use `utf8mb4` character set for full Unicode support.
 
-## 7. Execute Database Schema
+## 9. Create Database
 
 Execute the SQL file from `docs/Download/my.sql` or your schema file:
 
@@ -88,7 +129,7 @@ Execute the SQL file from `docs/Download/my.sql` or your schema file:
 mysql -u root -p SF2 < docs/Download/my.sql
 ```
 
-## 8. Configure the Application
+## 10. Execute Database Schema
 
 ### 🔐 Security Setup (Critical)
 
@@ -145,7 +186,7 @@ export SF_ROOT_URL="https://yourdomain.com/"
 
 The configuration file will automatically use these if set.
 
-## 9. Authentication Setup
+## 11. Configure the Application
 
 ### Create .htpasswd File
 
@@ -168,7 +209,7 @@ chmod 644 .htpasswd
 
 Ensure the `.htpasswd` path in `.htaccess` points to the correct location.
 
-## 10. Create Required Directories
+## 12. Authentication Setup
 
 ```bash
 # Create uploads directory
@@ -179,7 +220,7 @@ chmod 755 Uploads
 chmod 755 Logs
 ```
 
-## 11. Production Deployment Checklist
+## 13. Create Required Directories
 
 Before deploying to production, verify:
 
@@ -199,7 +240,7 @@ Before deploying to production, verify:
 
 **See [SECURITY.md](SECURITY.md) for complete production deployment checklist.**
 
-# Security Features
+## 14. Production Deployment Checklist
 
 This framework includes production-ready security features:
 
