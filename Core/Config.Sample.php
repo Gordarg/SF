@@ -10,10 +10,11 @@
 define('_AppName', 'SF2');
 
 // Default URL (For redirects and etc.)
-define('_Root', 'http://localhost/SF/');
+// IMPORTANT: Use HTTPS in production
+define('_Root', getenv('SF_ROOT_URL') ?: 'https://localhost/SF/');
 
-// TODO: WARNING: Disable debug on production server
-define('_Debug', false);
+// Debug mode - MUST be false in production
+define('_Debug', getenv('SF_DEBUG') === 'true');
 
 // To disable statistics, turn off the flag
 define('_Statistics', false);
@@ -22,10 +23,15 @@ define('_Statistics', false);
 define('_UploadDirectory', 'Uploads/');
 
 // MySQL Server details
-define('_DatabaseServer', 'localhost');
-define('_DatabaseUsername', 'root');
-define('_DatabasePassword', '');
-define('_DatabaseName', 'SF2');
+// Use environment variables in production for security
+define('_DatabaseServer', getenv('DB_HOST') ?: 'localhost');
+define('_DatabaseUsername', getenv('DB_USER') ?: 'root');
+define('_DatabasePassword', getenv('DB_PASSWORD') ?: '');
+define('_DatabaseName', getenv('DB_NAME') ?: 'SF2');
+
+// CORS allowed origins (empty array = wildcard, not recommended for production)
+// Example: define('_CORSOrigins', ['https://example.com', 'https://app.example.com']);
+define('_CORSOrigins', []);
 
 // API Result Type
 define('_APIRESULTTYPE', 'application/json');

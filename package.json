@@ -1,19 +1,30 @@
 {
-  "name": "app",
-  "version": "1.0.0",
-  "description": "Concert Blog Solution",
-  "main": "index.js",
+  "name": "@gordarg/snowframework",
+  "version": "2.0.0",
+  "description": "SF2 - A minimal, secure, headless PHP framework for API development",
+  "main": "index.php",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gordarg/SF.git"
+  },
+  "keywords": [
+    "php",
+    "framework",
+    "api",
+    "headless",
+    "security"
+  ],
+  "author": "Mohammad R. Tayyebi <smile@tyyi.net>",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.5.0",
-    "jquery": "^3.5.1",
     "popper": "^1.0.1"
-  }
+  },
+  "devDependencies": {}
 }

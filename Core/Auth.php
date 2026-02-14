@@ -19,6 +19,7 @@ class Auth {
      * CheckLogin
      *
      * Checks the Person role and login
+     * Includes rate limiting to prevent brute force attacks
      * 
      * @param  mixed $Data
      * @param  mixed $Role
@@ -27,6 +28,19 @@ class Auth {
      */
     function CheckLogin($Data, $Role = 'admin')
     {
+        // Initialize rate limiter
+        $rateLimiter = new RateLimit();
+        
+        // Check rate limit before attempting authentication
+        try {
+            $rateLimiter->CheckRateLimit();
+        } catch (Exception $e) {
+            // Log rate limit hit
+            if (class_exists('Logger')) {
+                Logger::SecurityEvent('Rate limit exceeded for authentication attempt');
+            }
+            throw new UnauthException($e->getMessage());
+        }
 
         // If php_auth_user is denied on server and
         // RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -72,10 +86,25 @@ class Auth {
                     $check_result = APR1_MD5::check($plain_text_passwd, rtrim($Credit[1]));
 
                     // If not correct
-                    if (!$check_result)
+                    if (!$check_result) {
+                        // Record failed attempt
+                        $rateLimiter->RecordFailedAttempt();
+                        
+                        // Log failed attempt
+                        if (class_exists('Logger')) {
+                            Logger::AuthAttempt($Data['Username'], false);
+                        }
+                        
                         throw new UnauthException();
+                    }
 
-                    // If correct
+                    // If correct - reset rate limit and log success
+                    $rateLimiter->ResetAttempts();
+                    
+                    if (class_exists('Logger')) {
+                        Logger::AuthAttempt($Data['Username'], true);
+                    }
+                    
                     return true;
                     
                 }
@@ -96,9 +125,26 @@ class Auth {
             $Model = $this->ParentController->CallModel('Authentication');
             $Entity = $Model->ValidatePersonPass($Values);
 
+            $isValid = (count($Entity) == 1);
+            
+            // Handle rate limiting
+            if (!$isValid) {
+                $rateLimiter->RecordFailedAttempt();
+                
+                if (class_exists('Logger')) {
+                    Logger::AuthAttempt($Data['Username'], false);
+                }
+            } else {
+                $rateLimiter->ResetAttempts();
+                
+                if (class_exists('Logger')) {
+                    Logger::AuthAttempt($Data['Username'], true);
+                }
+            }
+
             // TODO: Check sessions
 
-            return (count($Entity) == 1);
+            return $isValid;
         }
     }
 

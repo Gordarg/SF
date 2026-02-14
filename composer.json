@@ -1,0 +1,31 @@
+{
+    "name": "gordarg/sf",
+    "description": "SF2 - A minimal, secure, headless PHP framework for API development",
+    "type": "project",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Mohammad R. Tayyebi",
+            "email": "smile@tyyi.net"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "SF\\Core\\": "Core/",
+            "SF\\Model\\": "Model/",
+            "SF\\Controller\\": "Controller/",
+            "SF\\Libs\\": "Libs/",
+            "SF\\Helper\\": "Helper/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

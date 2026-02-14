@@ -1,0 +1,4 @@
+# Deny access to log files
+# Protects sensitive log data from being accessible via HTTP
+
+Require all denied

@@ -1,21 +1,32 @@
 <?php
 
-/**
- * This class handles functionality around cryptography, hashing, encryption, and etc...
- */
+namespace SF\Libs;
 
-class Cryptography {
-    const SALT = 'MyVoiceIsMyPassport';
+/**
+ * Cryptography utility class
+ * 
+ * Provides encryption and hashing functions
+ * 
+ * SECURITY WARNING: Change the SALT value in production!
+ * The default salt should be replaced with a unique value
+ * in your Config.php or environment variables.
+ */
+class Cryptography
+{
+    // TODO: Move to Config.php and use environment variable
+    // Example: private const SALT = _CryptoSalt;
+    private const SALT = 'MyVoiceIsMyPassport';
+    
     /**
-     * Encrypt
-     *
      * Encrypts the input
      * 
-     * @return String
+     * @param string $input Input to encrypt
+     * @return string Encrypted hash
      */
-    public static function Encrypt($input) {
-        return hash('sha512', self::SALT . $input);
+    public static function encrypt(string $input): string
+    {
+        // Use configured salt if available, otherwise fallback to default
+        $salt = defined('_CryptoSalt') ? _CryptoSalt : self::SALT;
+        return hash('sha512', $salt . $input);
     }
 }
-
-?>

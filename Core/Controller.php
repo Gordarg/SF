@@ -249,7 +249,8 @@ class Controller extends Middleware{
      * CheckLogin
      *
      * Check the auth for Person
-     * Automatially detects where to find username and password
+     * Automatically detects where to find username and password
+     * Implements session security measures
      * 
      * @param  mixed $Role
      *
@@ -257,6 +258,44 @@ class Controller extends Middleware{
      */
     function CheckLogin($Role = 'admin')
     {
+        // Start session with secure settings if not already started
+        if (session_status() === PHP_SESSION_NONE) {
+            // Set secure session cookie parameters
+            $cookieParams = [
+                'lifetime' => 0, // Session cookie
+                'path' => '/',
+                'domain' => '',
+                'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off', // Secure flag if HTTPS
+                'httponly' => true, // Prevent JavaScript access
+                'samesite' => 'Strict' // CSRF protection
+            ];
+            
+            if (PHP_VERSION_ID >= 70300) {
+                session_set_cookie_params($cookieParams);
+            } else {
+                session_set_cookie_params(
+                    $cookieParams['lifetime'],
+                    $cookieParams['path'],
+                    $cookieParams['domain'],
+                    $cookieParams['secure'],
+                    $cookieParams['httponly']
+                );
+            }
+            
+            session_start();
+        }
+        
+        // Check for session timeout (30 minutes of inactivity)
+        if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
+            // Session expired
+            session_unset();
+            session_destroy();
+            throw new AuthException('Session expired. Please login again.');
+        }
+        
+        // Update last activity time
+        $_SESSION['last_activity'] = time();
+        
         // If values not set
         if (isset($_SERVER['PHP_AUTH_USER']))
         {
@@ -265,10 +304,20 @@ class Controller extends Middleware{
                 'Username' => $_SERVER['PHP_AUTH_USER'],
                 'Password' => $_SERVER['PHP_AUTH_PW']
             ];
+            
             // Check with DB
-            if (!(new Auth($this))->CheckLogin($Values, $Role))
+            if (!(new Auth($this))->CheckLogin($Values, $Role)) {
                 throw new AuthException('Invalid Login.');
-            else return true;
+            }
+            
+            // Regenerate session ID on successful login (prevent session fixation)
+            if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
+                session_regenerate_id(true);
+                $_SESSION['authenticated'] = true;
+                $_SESSION['username'] = $_SERVER['PHP_AUTH_USER'];
+            }
+            
+            return true;
         }
         else if (isset($_COOKIE['Username']))
         {
@@ -277,11 +326,21 @@ class Controller extends Middleware{
                 'Username' => $_COOKIE['Username'],
                 'Password' => $_COOKIE['Password']
             ];
+            
             // TODO: check with token instead of password
             // Check with DB
-            if (!(new Auth($this))->CheckLogin($Values, $Role))
+            if (!(new Auth($this))->CheckLogin($Values, $Role)) {
                 throw new AuthException('Invalid Login.');
-            else return true;
+            }
+            
+            // Regenerate session ID on successful login (prevent session fixation)
+            if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']) {
+                session_regenerate_id(true);
+                $_SESSION['authenticated'] = true;
+                $_SESSION['username'] = $_COOKIE['Username'];
+            }
+            
+            return true;
         }
         else 
             throw new AuthException('Login Required.');

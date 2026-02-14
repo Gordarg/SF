@@ -3,3 +3,6 @@ node_modules
 npm-debug.log
 .vscode
 Core/Config.php
+Logs/*.log
+vendor/
+composer.lock

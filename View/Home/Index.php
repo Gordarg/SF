@@ -52,11 +52,11 @@ foreach ($Data['Model'] as $item)
 ?>
         <!-- Blog Post -->
         <div class="card mb-4">
-          <img class="card-img-top" src="<?php echo _Root . 'Post/Download/' . $item['Language'] . '/' . $item['MasterId'] ?>" alt="Card image cap">
+          <img class="card-img-top" src="<?php echo _Root . 'Post/Download/' . htmlspecialchars($item['Language'], ENT_QUOTES, 'UTF-8') . '/' . htmlspecialchars($item['MasterId'], ENT_QUOTES, 'UTF-8') ?>" alt="Card image cap">
           <div class="card-body">
-            <h2 class="card-title"><?php echo $item['Title'] ?></h2>
-            <p class="card-text"><?php echo $item['Body'] ?></p>
-            <a href="<?php echo _Root . 'Home/View/' . $item['Language'] . '/' . $item['MasterId'] ?>" class="btn btn-primary">بیشتر &larr;</a>
+            <h2 class="card-title"><?php echo htmlspecialchars($item['Title'], ENT_QUOTES, 'UTF-8') ?></h2>
+            <p class="card-text"><?php echo htmlspecialchars($item['Body'], ENT_QUOTES, 'UTF-8') ?></p>
+            <a href="<?php echo _Root . 'Home/View/' . htmlspecialchars($item['Language'], ENT_QUOTES, 'UTF-8') . '/' . htmlspecialchars($item['MasterId'], ENT_QUOTES, 'UTF-8') ?>" class="btn btn-primary">بیشتر &larr;</a>
           </div>
           <div class="card-footer text-muted">
             <?php 
@@ -64,9 +64,9 @@ foreach ($Data['Model'] as $item)
               $Month = $item['Month'];
               $Day = $item['Day'];
               $ShamsiDate = gregorian_to_jalali($Year, $Month, $Day, '/');
-              echo  $ShamsiDate
+              echo htmlspecialchars($ShamsiDate, ENT_QUOTES, 'UTF-8')
             ?>
-            <a href="#"><?php echo $item['Username'] ?></a>
+            <a href="#"><?php echo htmlspecialchars($item['Username'], ENT_QUOTES, 'UTF-8') ?></a>
           </div>
         </div>
 <?php
